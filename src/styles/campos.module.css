@@ -1,0 +1,23 @@
+.campos {
+    padding: 0.75em 0em 0.75em 0em;
+    width: 75%;
+    margin: auto;
+}
+
+.campo {
+    display: block;
+    margin-bottom: 0.75em;
+}
+
+.campo input[type='text'], .campo input[type='date'], .campo input[type='number'], .campo input[type='email'], .campo select {
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    margin: 0.5em 0em;
+    width: 100%;
+}
+
+.teste {
+    display: flex;
+}

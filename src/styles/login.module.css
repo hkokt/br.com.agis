@@ -1,0 +1,57 @@
+.site {
+    align-items: center;
+    display: flex;
+    font-family: 'Share Tech', sans-serif;
+    justify-content: center;
+    margin: auto;
+    padding: 0.5em;
+    width: 80%;
+    height: -00%;
+}
+
+.aling {
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    padding: 1em;
+    -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.30);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.30);
+}
+
+.titleLogo {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.titleLogo h2 {
+    width: 75%;
+    font-size: 30px;
+}
+
+.titleLogo img {
+    width: 25%;
+}
+
+@media screen and (min-width: 700px) {
+    .site {
+        width: 45%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .site {
+        width: 35%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .site {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .site {
+        width: 18%;
+    }
+}
