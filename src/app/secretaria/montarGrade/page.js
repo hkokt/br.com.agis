@@ -4,9 +4,9 @@ import layoutStyle from '../../../styles/layout.module.css'
 
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { card } from '@/components/layouts';
+import { card } from '@/components/layoutsComponents';
 
-export default function grade() {
+export default function Page() {
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);

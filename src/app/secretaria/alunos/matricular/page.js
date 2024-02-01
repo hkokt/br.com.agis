@@ -3,7 +3,7 @@
 import layoutStyle from '@/styles/layout.module.css'
 import btStyle from '@/styles/botoes.module.css'
 
-import { formCrud } from "@/components/layouts";
+import { formCrud } from "@/components/layoutsComponents";
 import { useEffect, useState, useRef } from 'react';
 
 import axios from 'axios';

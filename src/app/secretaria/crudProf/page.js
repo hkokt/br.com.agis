@@ -3,11 +3,11 @@
 import layoutStyle from '../../../styles/layout.module.css'
 import btStyle from '../../../styles/botoes.module.css'
 
-import { formCrud, tableCrud } from '@/components/layouts'
+import { formCrud, tableCrud } from '@/components/layoutsComponents'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
-export default function crudProfessor() {
+export default function Page() {
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -24,10 +24,6 @@ export default function crudProfessor() {
                         body: [
                             item.cod,
                             item.usuario.nome,
-                            item.usuario.cpf,
-                            item.titulacao,
-                            item.usuario.dataNasc,
-                            item.usuario.emailPessoal,
                             item.usuario.emailCorp,
                             item.usuario.situacao
                         ]
@@ -122,7 +118,7 @@ export default function crudProfessor() {
                 <div className={layoutStyle.col}>
                     {tableCrud(
                         listaDeObjetos,
-                        ['Cod', 'Nome', 'CPF', "Titulação", 'Data Nasc.', 'Email Pessoal', 'Email Corp.', 'Situação'],
+                        ['Cod', 'Nome', 'Email Corp.', 'Situação'],
                         listaFuncs)
                     }
                 </div>

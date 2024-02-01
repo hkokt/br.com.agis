@@ -3,9 +3,9 @@
 import layoutStyle from '@/styles/layout.module.css'
 
 import { useEffect, useState, useRef } from 'react';
-import { tableCrud } from '@/components/layouts';
+import { tableCrud } from '@/components/layoutsComponents';
 
-export default function () {
+export default function Page() {
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -31,7 +31,7 @@ export default function () {
                 {
                     tableCrud(
                         listaDeObjetos,
-                        ['Ra', 'Nome', 'Email Corp.', 'Situação', 'Data Matricula', 'Limite da Matricula', 'Pont. Vestibular', 'Pos. Vestibular'],
+                        ['Ra', 'Nome', 'Email Corp.', 'Situação'],
                         listaFuncs
                     )
                 }

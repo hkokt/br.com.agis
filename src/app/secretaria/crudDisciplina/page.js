@@ -3,11 +3,11 @@
 import layoutStyle from '../../../styles/layout.module.css'
 import btStyle from '../../../styles/botoes.module.css'
 
-import { formCrud, tableCrud } from '@/components/layouts'
+import { formCrud, tableCrud } from '@/components/layoutsComponents'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
-export default function crudDisciplina() {
+export default function Page() {
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
