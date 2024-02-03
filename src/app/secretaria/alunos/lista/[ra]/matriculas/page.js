@@ -1,27 +1,14 @@
-import cardStyle from '@/styles/card.module.css'
+import { card } from "@/components/layoutsComponents"
 
 export default function Page({ params }) {
     return (
         <>
-            <div className={cardStyle.card}>
-                <div className={cardStyle.cardHead}>
-                    <a href='#'>Nome da Disciplina</a>
-                </div>
-                <div className={cardStyle.cardBody}>
-                    <p>Nome: Nome do Professor</p>
-                    <p>Situação: cursando</p>
-                </div>
-            </div>
-
-            <div className={cardStyle.card}>
-                <div className={cardStyle.cardHead}>
-                    <a href='#'>Nome da Disciplina</a>
-                </div>
-                <div className={cardStyle.cardBody}>
-                    <p>Nome: Nome do Professor</p>
-                    <p>Situação: cursando</p>
-                </div>
-            </div>
+            {card(
+                [
+                    { titulo: 'Disciplina 1', p1: 'Professor: Nome do Professor', p2: 'Situação: ' + 'cursando' },
+                    { titulo: 'Disciplina 2', p1: 'Professor: Nome do Professor', p2: 'Situação: ' + 'cursando' }
+                ]
+            )}
         </>
     )
 }

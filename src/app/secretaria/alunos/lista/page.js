@@ -1,9 +1,12 @@
 'use client'
 
-import layoutStyle from '@/styles/layout.module.css'
+import cardStyle from '@/styles/card.module.css'
+import { card } from '@/components/layoutsComponents';
 
 import { useEffect, useState, useRef } from 'react';
-import { tableCrud } from '@/components/layoutsComponents';
+
+import axios from 'axios';
+
 
 export default function Page() {
     const myElementRef = useRef(null);
@@ -23,20 +26,26 @@ export default function Page() {
 
 
     return (
-        <div className={layoutStyle.site} ref={myElementRef}>
-            <div className={layoutStyle.aling}>
+        <section className={cardStyle.layout} ref={myElementRef}>
+            <div className={cardStyle.title}>
+                <h1>Visualizar Alunos</h1>
+            </div>
+            <div className={cardStyle.overflow}>
 
-                <h1>Lista de alunos</h1>
-
-                {
-                    tableCrud(
-                        listaDeObjetos,
-                        ['Ra', 'Nome', 'Email Corp.', 'Situação'],
-                        listaFuncs
-                    )
-                }
+                {card(
+                    [
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
+                    ]
+                )}
 
             </div>
-        </div>
+        </section>
     )
 }
