@@ -7,17 +7,6 @@ export function input(props) {
     )
 }
 
-export function checkBox(props) {
-    return (
-        <>
-            <div>
-                <label>{props.text}</label>
-                <input type={props.tipo} name={props.nome} />
-            </div>
-        </>
-    )
-}
-
 export function select(props) {
     return (
         <>

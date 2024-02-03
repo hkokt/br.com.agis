@@ -1,53 +1,36 @@
 .card {
-    background: rgb(235, 235, 235);
-    border-radius: 5px;
-    margin-bottom: 0.5em;
+    border-bottom: 1px solid gray;
     padding: 0.5em;
 }
 
 .cardHead {
-    margin-bottom: 0.75em;
+    padding: 0.5em 0;
 }
 
-.cardHead h3 {
+.cardHead a {
     font-size: 30px;
-    padding: 0.5em;
-}
-
-.cardBody {
-    margin: auto;
-    width: 80%;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .cardBody p {
     margin: 0em;
 }
 
-.cardFooter {
-    border-top: 1px solid gray;
-    margin-top: 0.75em;
-    padding-top: 0.5em;
-    text-align: end;
-}
-
 @media screen and (min-width: 800px) {
     .card {
-        width: 48%;
-        margin: 0.5em 1%;
-        float: left;
+        
     }
 }
 
 @media screen and (min-width: 1200px) {
     .card {
-        width: 24%;
-        margin: 0.5em 0.5%;
+        
     }
 }
 
 @media screen and (min-width: 1500px) {
     .card {
-        width: 18%;
-        margin: 0.5em 1%;
+        
     }
 }

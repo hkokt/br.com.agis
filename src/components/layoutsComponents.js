@@ -20,11 +20,6 @@ export function formCrud(props) {
                                     select({ name: field.nome, options: field.lista })
                                 )
                             }
-                            {
-                                field.tag === 'checkBox' && (
-                                    checkBox({ nome: field.nome, tipo: field.tipo, text: field.text })
-                                )
-                            }
                         </div>
                     ))
                 }
@@ -97,26 +92,10 @@ export function tableCrud(props, titles, funcs) {
 
 import cardStyle from '../styles/card.module.css'
 
-export function card(props) {
+export function card() {
     return (
         <>
-            {
-                props.map((item, i) => (
-                    <div className={cardStyle.card} key={i}>
-                        {console.log(item.body[1])}
-                        <div className={cardStyle.cardHead}>
-                            <h3>{item.body[3].sigla} - {item.body[3].turno}</h3>
-                        </div>
-                        <div className={cardStyle.cardBody}>
-                            <p>Semestre: {item.body[2]}</p>
-                            <p>Ano: {item.body[1]}</p>
-                        </div>
-                        <div className={cardStyle.cardFooter}>
-                            <button className={btStyle.btForm}>Editar</button>
-                        </div>
-                    </div>
-                ))
-            }
+           
         </>
     )
 }

@@ -3,13 +3,14 @@
 import perfilStyle from '@/styles/perfil.module.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faGear, faBook, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faGear, faBook, faBookOpen, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 
-export default function SecViewAlunoLayout({ children }) {
+import Link from 'next/link'
+
+export default function SecViewAlunoLayout({ children, params }) {
     return (
         <article>
             <div className={perfilStyle.site}>
-                
                 <div className={perfilStyle.col}>
                     <div className={perfilStyle.fotoDePerfil}>
                         <img src="https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-cone-de-linha-de-perfil-do-instagram.png"></img>
@@ -19,38 +20,42 @@ export default function SecViewAlunoLayout({ children }) {
                         </div>
                     </div>
                     <div>
-
+                        <p>Ra: {params.ra}</p>
                     </div>
                 </div>
 
                 <div className={perfilStyle.col}>
-
                     <div className={perfilStyle.navigation}>
                         <article>
                             <span>
-                                <FontAwesomeIcon icon={faUser} size='xl'/>
-                                <p>Dados Pessoais</p>
+                                <FontAwesomeIcon icon={faBookOpen} className={perfilStyle.iconSize} />
+                                <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/secretaria/alunos/lista/${params.ra}`}>
+                                    Visão geral
+                                </Link>
                             </span>
                             <span>
-                                <FontAwesomeIcon icon={faBook} size='xl'/>
-                                <p>Matriculas</p>
+                                <FontAwesomeIcon icon={faUser} className={perfilStyle.iconSize} />
+                                <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/secretaria/alunos/lista/${params.ra}/dadosPessoais`}>
+                                    Dados Pessoais
+                                </Link>
                             </span>
                             <span>
-                                <FontAwesomeIcon icon={faEnvelopeOpenText} size='xl'/>
-                                <p>Solicitações</p>
+                                <FontAwesomeIcon icon={faBook} className={perfilStyle.iconSize} />
+                                <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/secretaria/alunos/lista/${params.ra}/matriculas`}>
+                                    Matriculas
+                                </Link>
                             </span>
                             <span>
-                                <FontAwesomeIcon icon={faGear} size='xl'/>
-                                <p>Configurações</p>
+                                <FontAwesomeIcon icon={faGear} className={perfilStyle.iconSize} />
+                                <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/secretaria/alunos/lista/${params.ra}/configuracoes`}>
+                                    Configurações
+                                </Link>
                             </span>
                         </article>
-
                     </div>
-
                     <section>
                         {children}
                     </section>
-
                 </div>
             </div>
         </article>

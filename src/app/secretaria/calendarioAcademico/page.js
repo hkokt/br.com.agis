@@ -104,7 +104,7 @@ export default function Page() {
                             layout: [
                                 { tag: "input", nome: "Data", tipo: "date" },
                                 { tag: "select", nome: "descricao", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
-                                { tag: 'checkBox', nome: 'ehFeriado', tipo: 'checkbox', text: 'É feriado?' }
+                                { tag: 'input', nome: 'É feriado?', tipo: 'checkbox' }
                             ]
                         }
                     )}
