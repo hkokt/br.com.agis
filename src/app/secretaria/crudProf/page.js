@@ -1,13 +1,17 @@
 "use client"
 
-import layoutStyle from '../../../styles/layout.module.css'
-import btStyle from '../../../styles/botoes.module.css'
+import layoutStyle from '@/styles/layout.module.css'
+import btStyle from '@/styles/botoes.module.css'
 
 import { formCrud, tableCrud } from '@/components/layoutsComponents'
+
 import { useEffect, useState, useRef } from 'react';
+
 import axios from 'axios';
 
 export default function Page() {
+    const url = 'http://localhost:8080/AGIS'
+
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -16,7 +20,7 @@ export default function Page() {
     useEffect(() => {
         async function selectAll() {
             try {
-                const response = await axios.get('http://localhost:8080/AGIS/professor');
+                const response = await axios.get(`${url}/professor`);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
@@ -29,6 +33,9 @@ export default function Page() {
                         ]
                     }
                 ))
+
+                console.log(listaDeObjetos)
+
                 setListaDeObjetos(listaDeObjetos);
             } catch (error) {
                 console.log(error);
@@ -49,7 +56,7 @@ export default function Page() {
                 titulacao: document.querySelector('input[name="Titulação"]').value
             }
 
-            axios.post(`http://localhost:8080/AGIS/professor`, data)
+            axios.post(`${url}/professor`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -63,13 +70,13 @@ export default function Page() {
                 titulacao: document.querySelector('input[name="Titulação"]').value
             }
 
-            axios.put(`http://localhost:8080/AGIS/professor/${localStorage.getItem('codProf')}`, data)
+            axios.put(`${url}/professor/${localStorage.getItem('codProf')}`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
 
         function selectById(cod) {
-            axios.get(`http://localhost:8080/AGIS/professor/${cod}`)
+            axios.get(`${url}/professor/${cod}`)
                 .then(response => (
                     localStorage.setItem('codProf', response.data.cod),
                     document.querySelector('input[name="Nome"]').value = response.data.usuario.nome,
@@ -82,7 +89,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`http://localhost:8080/AGIS/curso/${cod}`)
+            axios.delete(`${url}/professor/${cod}`)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }

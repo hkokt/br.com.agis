@@ -1,13 +1,15 @@
 "use client"
 
-import layoutStyle from '../../../styles/layout.module.css'
-import btStyle from '../../../styles/botoes.module.css'
+import layoutStyle from '@/styles/layout.module.css'
+import btStyle from '@/styles/botoes.module.css'
 
 import { formCrud, tableCrud } from '@/components/layoutsComponents'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function Page() {
+    const url = 'http://localhost:8080/AGIS'
+
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -18,7 +20,7 @@ export default function Page() {
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get('https://api-agis.onrender.com/curso');
+                const response = await axios.get(`${url}/curso`);
                 const dados = response.data;
 
                 const listaCursos = dados.map(item => (
@@ -33,7 +35,7 @@ export default function Page() {
 
         async function selectALL() {
             try {
-                const response = await axios.get('https://api-agis.onrender.com/disciplina');
+                const response = await axios.get(`${url}/disciplina`);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({
@@ -61,7 +63,7 @@ export default function Page() {
                 codCurso: document.getElementsByTagName('select')[1].value,
             }
 
-            axios.post(`https://api-agis.onrender.com/disciplina`, data)
+            axios.post(`${url}/disciplina`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -74,13 +76,13 @@ export default function Page() {
                 codCurso: document.getElementsByTagName('select')[1].value,
             }
 
-            axios.put(`https://api-agis.onrender.com/disciplina/${localStorage.getItem('codDisci')}`, data)
+            axios.put(`${url}/disciplina/${localStorage.getItem('codDisci')}`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
 
         function selectById(cod) {
-            axios.get(`https://api-agis.onrender.com/disciplina/${cod}`)
+            axios.get(`${url}/disciplina/${cod}`)
                 .then(response => (
                     document.querySelectorAll('select').forEach((select, i) => {
                         if (i == 0) { select.value = response.data.qtdAulas }
@@ -96,7 +98,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`https://api-agis.onrender.com/disciplina/${cod}`)
+            axios.delete(`${url}/disciplina/${cod}`)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }

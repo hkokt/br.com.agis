@@ -1,13 +1,16 @@
 "use client"
 
-import layoutStyle from '../../../styles/layout.module.css'
-import btStyle from '../../../styles/botoes.module.css'
+import layoutStyle from '@/styles/layout.module.css'
+import btStyle from '@/styles/botoes.module.css'
 
 import { formCrud, tableCrud } from '@/components/layoutsComponents'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function Page() {
+    const url = 'https://localhost:8080/AGIS'
+    //https://api-agis.onrender.com
+
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -16,11 +19,15 @@ export default function Page() {
     useEffect(() => {
         async function selectALL() {
             try {
-                const response = await axios.get('https://api-agis.onrender.com/curso');
+                const response = (await axios.get(`${url}/curso`))
+                    .headers({
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    });
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({
-                    body: [item.cod, item.nome, item.turno ]
+                    body: [item.cod, item.nome, item.turno]
                 }));
 
                 console.log(listaDeObjetos)
@@ -45,7 +52,7 @@ export default function Page() {
                 turno: document.querySelector('select').value
             }
 
-            axios.post(`https://api-agis.onrender.com/curso`, data)
+            axios.post(`${url}/curso`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -62,7 +69,7 @@ export default function Page() {
                 turno: document.querySelector('select').value
             }
 
-            axios.put(`https://api-agis.onrender.com/curso/${localStorage.getItem('codCurso')}`, data)
+            axios.put(`${url}/curso/${localStorage.getItem('codCurso')}`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -71,7 +78,7 @@ export default function Page() {
         }
 
         function selectById(cod) {
-            axios.get(`https://api-agis.onrender.com/curso/${cod}`)
+            axios.get(`${url}/curso/${cod}`)
                 .then(response => (
                     localStorage.setItem('codCurso', response.data.cod),
                     document.querySelector('input[name="Nome"]').value = response.data.nome,
@@ -86,7 +93,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`https://api-agis.onrender.com/curso/${cod}`)
+            axios.delete(`${url}/curso/${cod}`)
                 .then(response => {
                     console.log(response.data);
                     selectALL();

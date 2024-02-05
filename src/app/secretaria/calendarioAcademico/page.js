@@ -4,10 +4,13 @@ import layoutStyle from '../../../styles/layout.module.css'
 import btStyle from '../../../styles/botoes.module.css'
 
 import { formCrud, tableCrud } from '@/components/layoutsComponents';
+
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function Page() {
+    const url = 'http://localhost:8080/AGIS'
+
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -16,7 +19,7 @@ export default function Page() {
     useEffect(() => {
         async function selectALL() {
             try {
-                const response = await axios.get('http://localhost:8080/AGIS/datas');
+                const response = await axios.get(`${url}/datas`);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({
@@ -43,7 +46,7 @@ export default function Page() {
                 ehFeriado: document.querySelector('input[type="checkbox"]').checked
             }
 
-            axios.post(`http://localhost:8080/AGIS/datas`, data)
+            axios.post(`${url}/datas`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -58,7 +61,7 @@ export default function Page() {
                 ehFeriado: document.querySelector('input[type="checkbox"]').checked
             }
 
-            axios.put(`http://localhost:8080/AGIS/datas/${localStorage.getItem('codData')}`, data)
+            axios.put(`${url}/datas/${localStorage.getItem('codData')}`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -67,7 +70,7 @@ export default function Page() {
         }
 
         function selectById(cod) {
-            axios.get(`http://localhost:8080/AGIS/datas/${cod}`)
+            axios.get(`${url}/datas/${cod}`)
                 .then(response => (
                     localStorage.setItem('codData', response.data.cod),
                     document.querySelector('input[name="Data"]').value = response.data.data,
@@ -80,7 +83,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`http://localhost:8080/AGIS/datas/${cod}`)
+            axios.delete(`${url}/datas/${cod}`)
                 .then(response => {
                     console.log(response.data);
                     selectALL();

@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
+    const url = 'http://localhost:8080/AGIS'
     //REDIRECT
     const router = useRouter()
     
@@ -34,7 +35,7 @@ export default function Page() {
 
         async function selectAll() {
             try {
-                const response = await axios.get('http://localhost:8080/AGIS/gradeCurricular');
+                const response = await axios.get(`${url}/gradeCurricular`);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({
