@@ -29,7 +29,7 @@ export default function nav() {
                                 <NavDropdown.Item href="/secretaria/crudProf">Inserir Professor</NavDropdown.Item>
                             </NavDropdown>
 
-                            <Nav.Link href="/secretaria/visualizarGrade">Montar a Grade</Nav.Link>
+                            <Nav.Link href="/secretaria/visualizarGrade">Grades</Nav.Link>
 
                             <Nav.Link href="/secretaria/calendarioAcademico">Calendário Acadêmico</Nav.Link>
                         </Nav>

@@ -30,22 +30,13 @@ export default function Page() {
             <div className={cardStyle.title}>
                 <h1>Visualizar Alunos</h1>
             </div>
-            <div className={cardStyle.overflow}>
 
-                {card(
-                    [
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                        { titulo: 'Nome do aluno', p1: 'Curso-turno', p2: 'Ra: 1111111111' },
-                    ]
-                )}
-
-            </div>
+            {card(
+                [{
+                    body: [{ titulo: 'teste', p1: 'teste', p2: 'teste' }]
+                }]
+            )}
+            
         </section>
     )
 }

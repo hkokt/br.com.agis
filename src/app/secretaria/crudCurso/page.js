@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function Page() {
-    const url = 'https://localhost:8080/AGIS'
+    const url = 'http://localhost:8080'
     //https://api-agis.onrender.com
 
     const myElementRef = useRef(null);
@@ -20,10 +20,6 @@ export default function Page() {
         async function selectALL() {
             try {
                 const response = (await axios.get(`${url}/curso`))
-                    .headers({
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    });
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({

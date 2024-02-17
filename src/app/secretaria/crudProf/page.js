@@ -10,7 +10,8 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function Page() {
-    const url = 'http://localhost:8080/AGIS'
+    const url = 'http://localhost:8080'
+    //https://api-agis.onrender.com
 
     const myElementRef = useRef(null);
 

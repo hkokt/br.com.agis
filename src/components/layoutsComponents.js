@@ -94,21 +94,21 @@ import cardStyle from '@/styles/card.module.css'
 
 export function card(props) {
     return (
-        <>
+        <div className={cardStyle.overflow}>
             {
                 props.map((item, i) => (
                     <div className={cardStyle.card} key={i}>
                         <div className={cardStyle.cardHead}>
-                            <a href='#'>{item.titulo}</a>
+                            <a href='#'>{item.body[i].titulo}</a>
                         </div>
                         <div className={cardStyle.cardBody}>
-                            <p>{item.p1}</p>
-                            <p>{item.p2}</p>
+                            <p>Semestre: {item.body[i].p1}</p>
+                            <p>Ano: {item.body[i].p2}</p>
                         </div>
                     </div>
                 ))
             }
-        </>
+        </div>
     )
 }
 /* */

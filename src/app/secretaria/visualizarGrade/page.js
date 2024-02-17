@@ -17,21 +17,39 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
-    const url = 'http://localhost:8080/AGIS'
+    const url = 'http://localhost:8080'
     //REDIRECT
     const router = useRouter()
-    
+
     //MODAL
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     //ELEMENTOS DO HTML
     const myElementRef = useRef(null);
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
-    const [listaFuncs, setlistaFuncs] = useState([]);
+    const [listaCursos, setListaCurso] = useState([]);
 
     useEffect(() => {
+
+        async function selectCursos() {
+            try {
+                const response = await axios.get(`${url}/curso`);
+                const dados = response.data;
+
+                const listaCursos = dados.map(item => (
+                    { text: `${item.nome} - ${item.turno}`, value: `${item.cod}` }
+                ));
+
+                setListaCurso(listaCursos);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        selectCursos()
 
         async function selectAll() {
             try {
@@ -39,10 +57,11 @@ export default function Page() {
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => ({
-                    body: [item.cod, item.ano, item.semestre, item.curso]
+                    body: [{ titulo: `${item.curso.sigla} - ${item.curso.turno}`, p1: item.semestre, p2: item.ano }]
                 }));
 
                 setListaDeObjetos(listaDeObjetos);
+
             } catch (error) {
                 console.log(error);
             }
@@ -52,41 +71,37 @@ export default function Page() {
 
     }, []);
 
+    const criar = () => {
+        let codCurso = document.querySelector('select').value
+        localStorage.setItem('codCurso', codCurso)
+        router.push('/secretaria/montarGrade')
+    }
+
     return (
         <section className={cardStyle.layout} ref={myElementRef}>
             <div className={cardStyle.title}>
                 <h1>Visualizar Grade</h1>
                 <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
-            <div className={cardStyle.overflow}>
 
-                {card(
-                    [
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                        { titulo: 'Curso - turno', p1: 'Semestre: 1', p2: 'Ano: ' + '2024' },
-                    ]
-                )}
+            {card(listaDeObjetos)}
 
-            </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Selecione o Curso</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className={camposStyle.campo}>
-                        {select({ name: 'Selecione o curso', options: [] })}
+                        {select(
+                            { name: 'Selecione o curso', options: listaCursos }
+                        )}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => router.push('/secretaria/montarGrade')}>
+                    <Button variant="primary" onClick={criar}>
                         Criar
                     </Button>
                 </Modal.Footer>

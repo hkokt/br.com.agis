@@ -15,6 +15,7 @@
 .bt {
     border-radius: 5px;
     color: white;
+    margin: 0.25em;
     padding: 0.5em 1.25em;
     background: #2278fc;
 }
