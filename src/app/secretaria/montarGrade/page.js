@@ -2,7 +2,7 @@
 
 import cardStyle from '@/styles/card.module.css'
 
-import { card, formCrud, tableCrud } from '@/components/layoutsComponents'
+import { formCrud } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
 
@@ -13,9 +13,14 @@ import { Button, Modal } from 'react-bootstrap';
 
 import axios from 'axios';
 
+import { useRouter } from 'next/navigation'
+
 export default function Page() {
     const url = 'http://localhost:8080'
     const myElementRef = useRef(null);
+
+    //REDIRECT
+    const router = useRouter()
 
     //MODAL
     const [show, setShow] = useState(false);
@@ -28,12 +33,17 @@ export default function Page() {
         let html = `
             <div class="card_card__ppk8h">
                 <div class="card_cardHead__mcHRd">
-                    <a><span id="disciplina">${selects[3].children[[selects[3].selectedIndex]].textContent}</span></a>
+                    <a><span>${selects[3].children[[selects[3].selectedIndex]].textContent}</span></a>
+                    <input type="hidden" id="disciplina" value="${selects[3].value}">
                 </div>
                 <div class="card_cardBody__yCjS5">
-                    <p>De <span>${selects[0].children[[selects[0].selectedIndex]].textContent}</span> até <span>${selects[1].children[[selects[1].selectedIndex]].textContent}</span></p>
-                    <p>Dia da Semana: <span>${selects[2].children[[selects[2].selectedIndex]].textContent}</span></p>
+                    <p>
+                        De <span id="horaIni">${selects[0].children[[selects[0].selectedIndex]].textContent}</span> 
+                        até <span id="horaFim">${selects[1].children[[selects[1].selectedIndex]].textContent}</span>
+                    </p>
+                    <p>Dia da Semana: <span id="diaDaSemana">${selects[2].children[[selects[2].selectedIndex]].textContent}</span></p>
                     <p>Professor: <span>${selects[4].children[[selects[4].selectedIndex]].textContent}</span></p>
+                    <input type="hidden" id="professor" value="${selects[4].value}">
                 </div>
             </div>
         `
@@ -42,11 +52,57 @@ export default function Page() {
     }
 
     const remove = () => {
-
+        let cards = document.querySelectorAll('.card_card__ppk8h')
+        cards[cards.length - 1].remove()
     }
 
     const insert = () => {
-        
+        let dataAual = new Date(), sem = 0
+
+        if (dataAual.getMonth() > 6) { sem = 2 } else { sem = 1 }
+
+        const data = {
+            codCurso: localStorage.getItem('codCurso'),
+            semestre: sem,
+            ano: dataAual.getFullYear()
+        }
+
+        axios.post(`${url}/gradeCurricular`, data)
+            .then(response => {
+                insertsTurmas(response.data.cod)
+                router.push('/secretaria/visualizarGrade')
+            })
+            .catch(error => { console.log(error) })
+    }
+
+    function insertsTurmas(codGrade) {
+        let disciplina = document.querySelectorAll('#disciplina')
+        let professor = document.querySelectorAll('#professor')
+        let diaDaSemana = document.querySelectorAll('#diaDaSemana')
+        let horaIni = document.querySelectorAll('#horaIni')
+        let horaFim = document.querySelectorAll('#horaFim')
+
+        const listaData = []
+
+        for (let i = 0; i < horaIni.length; i++) {
+            const objetoDados = {
+                horarioInicio: horaIni[i].textContent,
+                horarioFim: horaFim[i].textContent,
+                diaDaSemana: diaDaSemana[i].textContent,
+                situacao: 'aberta',
+                codDisciplina: disciplina[i].value,
+                codProfessor: professor[i].value,
+                codGradeCurricular: codGrade
+            }
+            console.log(objetoDados)
+            listaData.push(objetoDados)
+        }
+
+        listaData.forEach(data => {
+            axios.post(`${url}/turma`, data)
+                .then(response => { console.log(response.data) })
+                .catch(error => { console.log(error) })
+        })
     }
 
     //LISTAS
@@ -58,12 +114,15 @@ export default function Page() {
     const [listaProfessores, setListaProfessores] = useState([]);
 
     useEffect(() => {
+
+        // GET CURSO
         axios.get(`${url}/curso/${localStorage.getItem('codCurso')}`)
             .then(response => (
                 document.querySelector('h1').textContent = `Montar Grade | ${response.data.sigla} - ${response.data.turno}`
             ))
             .catch(error => (console.log(error)))
 
+        // GET DISCIPLINAS DO CURSO
         axios.get(`${url}/disciplina/curso/${localStorage.getItem('codCurso')}`)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
@@ -73,6 +132,7 @@ export default function Page() {
             })
             .catch(error => (console.log(error)))
 
+        // GET PROFESSORES
         axios.get(`${url}/professor`)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
@@ -96,7 +156,7 @@ export default function Page() {
                 </div>
                 <div className={cardStyle.overflow}>
                 </div>
-                <Button variant="primary">teste</Button>
+                <Button variant="primary" onClick={insert}>teste</Button>
             </section>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

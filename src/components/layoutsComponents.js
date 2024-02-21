@@ -91,19 +91,46 @@ export function tableCrud(props, titles, funcs) {
 }
 
 import cardStyle from '@/styles/card.module.css'
+import Link from 'next/link'
 
-export function card(props) {
+export function card(props, link, funcs) {
     return (
         <div className={cardStyle.overflow}>
             {
                 props.map((item, i) => (
                     <div className={cardStyle.card} key={i}>
                         <div className={cardStyle.cardHead}>
-                            <a href='#'>{item.body[i].titulo}</a>
+                            <div>
+                                {
+                                    link != '' && (
+                                        <Link href={`${link}/${item.body.cod}`}>{item.body.titulo}</Link>
+                                    )
+                                }
+                                {
+                                    link === '' && (
+                                        <a>{item.body.titulo}</a>
+                                    )
+                                }
+                            </div>
+                            <div className={cardStyle.icons}>
+                                {
+                                    funcs.deleteById != null && (
+                                        <FontAwesomeIcon icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)}/>
+                                    )
+                                }
+                                {
+                                    funcs.selectById != null && (
+                                        <FontAwesomeIcon icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)}/>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className={cardStyle.cardBody}>
-                            <p>Semestre: {item.body[i].p1}</p>
-                            <p>Ano: {item.body[i].p2}</p>
+                            {
+                                item.body.p.map((textos, i) => (
+                                    <p key={i}>{textos}</p>
+                                ))
+                            }
                         </div>
                     </div>
                 ))
@@ -111,4 +138,3 @@ export function card(props) {
         </div>
     )
 }
-/* */

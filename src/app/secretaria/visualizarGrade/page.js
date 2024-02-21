@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Page() {
     const url = 'http://localhost:8080'
+    const myElementRef = useRef(null);
     //REDIRECT
     const router = useRouter()
 
@@ -27,7 +28,6 @@ export default function Page() {
     const handleShow = () => setShow(true);
 
     //ELEMENTOS DO HTML
-    const myElementRef = useRef(null);
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
     const [listaCursos, setListaCurso] = useState([]);
 
@@ -56,9 +56,18 @@ export default function Page() {
                 const response = await axios.get(`${url}/gradeCurricular`);
                 const dados = response.data;
 
-                const listaDeObjetos = dados.map(item => ({
-                    body: [{ titulo: `${item.curso.sigla} - ${item.curso.turno}`, p1: item.semestre, p2: item.ano }]
-                }));
+                const listaDeObjetos = dados.map(item => (
+                    {
+                        body: {
+                            cod: item.cod, 
+                            titulo: `${item.curso.sigla} - ${item.curso.turno}`, 
+                            p: [ 
+                                `Ano: ${item.ano}`, 
+                                `Semestre: ${item.semestre}` 
+                            ]
+                        }
+                    }
+                ))
 
                 setListaDeObjetos(listaDeObjetos);
 
@@ -84,7 +93,7 @@ export default function Page() {
                 <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
-            {card(listaDeObjetos)}
+            {card(listaDeObjetos, '/secretaria/visualizarGrade', [])}
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
