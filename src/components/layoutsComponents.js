@@ -31,7 +31,7 @@ export function formCrud(props) {
 import tableStyle from '../styles/table.module.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons'
 
 export function tableCrud(props, titles, funcs) {
     return (
@@ -115,12 +115,17 @@ export function card(props, link, funcs) {
                             <div className={cardStyle.icons}>
                                 {
                                     funcs.deleteById != null && (
-                                        <FontAwesomeIcon icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)}/>
+                                        <FontAwesomeIcon icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)} />
                                     )
                                 }
                                 {
                                     funcs.selectById != null && (
-                                        <FontAwesomeIcon icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)}/>
+                                        <FontAwesomeIcon icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)} />
+                                    )
+                                }
+                                {
+                                    funcs.dispensarById != null && (
+                                        <FontAwesomeIcon icon={faBan} onClick={() => funcs.dispensarById()} />
                                     )
                                 }
                             </div>

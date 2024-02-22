@@ -9,18 +9,41 @@ import axios from 'axios';
 
 
 export default function Page() {
+    const url = `http://localhost:8080`
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
-    const [listaFuncs, setlistaFuncs] = useState([]);
 
     useEffect(() => {
 
-        function selectById(cod) {
-            console.log(cod)
+        async function selectAll() {
+
+            try {
+                const response = await axios.get(`${url}/aluno`);
+                const dados = response.data;
+
+                const listaDeObjetos = dados.map(item => (
+                    {
+                        body: {
+                            cod: item.ra, 
+                            titulo: `${item.usuario.nome}`, 
+                            p: [ 
+                                `Ra: ${item.ra}`, 
+                                `Curso: ${item.curso.sigla} - ${item.curso.turno}` 
+                            ]
+                        }
+                    }
+                ))
+                    
+                setListaDeObjetos(listaDeObjetos);
+
+            } catch (error) {
+                console.log(error);
+            }
+
         }
 
-        setlistaFuncs({ selectById: selectById, deleteById: null })
+        selectAll()
 
     }, []);
 
@@ -31,12 +54,8 @@ export default function Page() {
                 <h1>Visualizar Alunos</h1>
             </div>
 
-            {card(
-                [{
-                    body: [{ titulo: 'teste', p1: 'teste', p2: 'teste' }]
-                }]
-            )}
-            
+            {card(listaDeObjetos, '/secretaria/alunos/lista', [])}
+
         </section>
     )
 }

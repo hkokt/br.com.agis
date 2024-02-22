@@ -9,6 +9,7 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 export default function () {
+    const url = `http://localhost:8080`
     const myElementRef = useRef(null);
 
     const [listaCursos, setListaCurso] = useState([]);
@@ -16,7 +17,7 @@ export default function () {
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get('http://localhost:8080/AGIS/curso');
+                const response = await axios.get(`${url}/curso`);
                 const dados = response.data;
 
                 const listaCursos = dados.map(item => (
@@ -30,6 +31,27 @@ export default function () {
         }
 
         selectCursos()
+
+        const btInsert = document.getElementById('insert');
+
+        btInsert.onclick = function () {
+            const data = {
+                cpf: document.querySelector('[name="CPF"]').value,
+                nome: document.querySelector('[name="Nome"]').value,
+                nomeSocial: document.querySelector('[name="Nome Social"]').value,
+                dataNasc: document.querySelector('[name="Data Nasc."]').value,
+                dataConc2grau: document.querySelector('[name="Data de Conclusão do 2°"]').value,
+                instConc2grau: document.querySelector('[name="Instituição de Conclusão do 2°"]').value,
+                emailPessoal: document.querySelector('[name="Email Pessoal"]').value,
+                ptVestibular: document.querySelector('[name="Pontuação no vestibular"]').value,
+                posVestibular: document.querySelector('[name="Posição no Vestibular"]').value,
+                codCurso: document.querySelector('select').value,
+            }
+
+            axios.post(`${url}/aluno`, data)
+                .then(response => console.log(response.data))
+                .catch(error => console.log(error))
+        }
 
     }, []);
 

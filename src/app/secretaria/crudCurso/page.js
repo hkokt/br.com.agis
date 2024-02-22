@@ -27,8 +27,6 @@ export default function Page() {
                     body: [item.cod, item.nome, item.turno]
                 }));
 
-                console.log(listaDeObjetos)
-
                 setListaDeObjetos(listaDeObjetos);
             } catch (error) {
                 console.log(error);
