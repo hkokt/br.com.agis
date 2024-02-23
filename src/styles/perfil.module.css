@@ -25,11 +25,16 @@
 }
 
 .navigation {
+    -webkit-box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
     overflow-x: scroll;
+
+    
 }
 
 .navigation article {
-    border-bottom: 1px solid gray;
+  
     display: flex;
     margin: 1em 0;
     padding-bottom: 0.15em;

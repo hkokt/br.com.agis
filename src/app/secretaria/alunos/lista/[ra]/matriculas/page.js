@@ -24,7 +24,7 @@ export default function Page({ params }) {
                 const listaDeObjetos = dados.map(item => (
                     {
                         body: {
-                            cod: 0,
+                            cod: `${item.turma.cod}/${item.aluno.ra}/${item.ano}/${item.semestre}`,
                             titulo: `${item.turma.disciplina.nome}`,
                             p: [
                                 `Matriculado no: ${item.semestre}° semestre do ano de ${item.ano}`,
@@ -51,7 +51,7 @@ export default function Page({ params }) {
 
     return (
         <>
-            {card(listaDeObjetos, '', listaFuncs)}
+            {card(listaDeObjetos, `/secretaria/alunos/lista/${params.ra}/matriculas`, listaFuncs)}
         </>
     )
 }
