@@ -15,26 +15,31 @@
     padding: 0.5em;
 }
 
-.fotoDePerfil div p {
+.fotoDePerfil div p,
+.contatos p {
     margin: 0;
 }
 
-.fotoDePerfil div p:first-child {
+.fotoDePerfil div p:first-child,
+.contatos p:first-child {
     font-size: 30px;
     font-weight: bolder;
 }
 
-.navigation {
-    -webkit-box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 23px 20px -26px rgba(0, 0, 0, 0.75);
-    overflow-x: scroll;
+.contatos {
+    margin: auto;
+    padding: 0.5em;
+    width: 80%;
+}
 
-    
+.navigation {
+    overflow-x: scroll;
 }
 
 .navigation article {
-  
+    -webkit-box-shadow: 0px 23px 20px -18px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 23px 20px -18px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 23px 20px -18px rgba(0, 0, 0, 0.75);
     display: flex;
     margin: 1em 0;
     padding-bottom: 0.15em;
@@ -84,6 +89,16 @@
 
     .fotoDePerfil img {
         width: 100%;
+    }
+
+    .fotoDePerfil div p:first-child,
+    .contatos p:first-child {
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+    .contatos {
+        padding: 0em;
     }
 
     .navigation {

@@ -83,7 +83,7 @@ export default function Page() {
     const criar = () => {
         let codCurso = document.querySelector('select').value
         localStorage.setItem('codCurso', codCurso)
-        router.push('/secretaria/montarGrade')
+        router.push('/secretaria/grades/montar')
     }
 
     return (
@@ -93,7 +93,7 @@ export default function Page() {
                 <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
-            {card(listaDeObjetos, '/secretaria/visualizarGrade', [])}
+            {card(listaDeObjetos, '/secretaria/grades', [])}
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

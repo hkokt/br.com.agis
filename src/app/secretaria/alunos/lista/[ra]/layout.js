@@ -5,22 +5,46 @@ import perfilStyle from '@/styles/perfil.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faBook, faBookOpen, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 
+import { useEffect, useRef, useState } from 'react'
+
+import axios from 'axios'
+
 import Link from 'next/link'
 
 export default function SecViewAlunoLayout({ children, params }) {
+    const url = 'http://localhost:8080'
+    const myElementRef = useRef(null);
+
+    useEffect(() => {
+
+        axios.get(`${url}/aluno/${params.ra}`)
+            .then(response => {
+                document.querySelector('#nomes').innerHTML = `
+                    <p>Nome: ${response.data.usuario.nome}</p>
+                    <p>Nome Social: ${response.data.nomeSocial}</p>
+                `
+                document.querySelector('#contatos').innerHTML = `
+                    <p>Emails</p>    
+                    <p>${response.data.usuario.emailPessoal}</p>
+                    <p>${response.data.usuario.emailCorp}</p>
+                `
+            })
+            .catch(error => console.log(error))
+
+    }, [])
+
     return (
         <article>
-            <div className={perfilStyle.site}>
+            <div className={perfilStyle.site} ref={myElementRef}>
                 <div className={perfilStyle.col}>
                     <div className={perfilStyle.fotoDePerfil}>
                         <img src="https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-cone-de-linha-de-perfil-do-instagram.png"></img>
-                        <div>
-                            <p>Nome: Aluno </p>
-                            <p>Nome Social: </p>
+                        <div id="nomes">
+
                         </div>
                     </div>
-                    <div>
-                        <p>Ra: {params.ra}</p>
+                    <div id="contatos" className={perfilStyle.contatos}>
+                        
                     </div>
                 </div>
 

@@ -1,11 +1,11 @@
 "use client"
 
-import Nav from "@/components/navComponent";
+import { navSec }  from "@/components/navComponent";
 
 export default function SecLayout({ children }) {
     return (
         <section>
-            <Nav />
+            {navSec()}
             {children}
         </section>
     )
