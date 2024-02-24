@@ -1,22 +1,33 @@
 "use client"
 
-import layoutStyle from '@/styles/layout.module.css'
-import btStyle from '@/styles/botoes.module.css'
+import cardStyle from '@/styles/card.module.css'
 
-import { formCrud, tableCrud } from '@/components/layoutsComponents'
+import { formCrud, card } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
 
+import { Button, Modal } from 'react-bootstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import axios from 'axios';
+
 
 export default function Page() {
     const url = 'http://localhost:8080'
     //https://api-agis.onrender.com
-
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
+
+    const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
+
+    //MODAL
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         async function selectAll() {
@@ -26,12 +37,14 @@ export default function Page() {
 
                 const listaDeObjetos = dados.map(item => (
                     {
-                        body: [
-                            item.cod,
-                            item.usuario.nome,
-                            item.usuario.emailCorp,
-                            item.usuario.situacao
-                        ]
+                        body: {
+                            cod: item.cod,
+                            titulo: `${item.titulacao} - ${item.usuario.nome}`,
+                            p: [
+                                `Email Corp.: ${item.usuario.emailCorp}`,
+                                `Email Pessoal: ${item.usuario.emailPessoal}`
+                            ]
+                        }
                     }
                 ))
 
@@ -45,10 +58,7 @@ export default function Page() {
 
         selectAll()
 
-        const btInsert = document.getElementById('insert');
-        const btUpdate = document.getElementById('update');
-
-        btInsert.onclick = async function () {
+        const insert = () => {
             const data = {
                 nome: document.querySelector('input[name="Nome"]').value,
                 cpf: document.querySelector('input[name="cpf"]').value,
@@ -62,7 +72,7 @@ export default function Page() {
                 .catch(error => (console.log(error)))
         }
 
-        btUpdate.onclick = async function () {
+        const update = () => {
             const data = {
                 nome: document.querySelector('input[name="Nome"]').value,
                 cpf: document.querySelector('input[name="cpf"]').value,
@@ -77,6 +87,8 @@ export default function Page() {
         }
 
         function selectById(cod) {
+            handleShow()
+
             axios.get(`${url}/professor/${cod}`)
                 .then(response => (
                     localStorage.setItem('codProf', response.data.cod),
@@ -97,15 +109,24 @@ export default function Page() {
 
         setlistaFuncs({ selectById: selectById, deleteById: deleteById })
 
+        setFuncs({ insert: insert, update: update })
+
     }, [])
 
     return (
-        <div className={layoutStyle.site} ref={myElementRef}>
-            <div className={layoutStyle.aling}>
-
+        <section className={cardStyle.layout} ref={myElementRef}>
+            <div className={cardStyle.title}>
                 <h1>Manter Professor</h1>
+                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+            </div>
 
-                <div className={layoutStyle.col}>
+            {card(listaDeObjetos, '', listaFuncs)}
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Crud</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                     {formCrud(
                         {
                             layout: [
@@ -117,21 +138,19 @@ export default function Page() {
                             ]
                         }
                     )}
-                    <div className={btStyle.alingBt}>
-                        <button className={btStyle.btForm} id="insert">Inserir</button>
-                        <button className={btStyle.btForm} id="update">Atualizar</button>
-                    </div>
-                </div>
-
-                <div className={layoutStyle.col}>
-                    {tableCrud(
-                        listaDeObjetos,
-                        ['Cod', 'Nome', 'Email Corp.', 'Situação'],
-                        listaFuncs)
-                    }
-                </div>
-
-            </div>
-        </div >
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={funcs.insert}>
+                        Criar
+                    </Button>
+                    <Button variant="primary" onClick={funcs.update}>
+                        Atualizar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </section>
     )
 }

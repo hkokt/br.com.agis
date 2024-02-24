@@ -70,7 +70,7 @@ export default function Page() {
         axios.post(`${url}/gradeCurricular`, data)
             .then(response => {
                 insertsTurmas(response.data.cod)
-                router.push('/secretaria/visualizarGrade')
+                router.push('/secretaria/grades')
             })
             .catch(error => { console.log(error) })
     }

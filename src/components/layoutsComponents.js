@@ -111,6 +111,7 @@ export function card(props, link, funcs) {
                                         <a>{item.body.titulo}</a>
                                     )
                                 }
+                                <input type='hidden' name="cod" value={item.body.cod}></input>
                             </div>
                             <div className={cardStyle.icons}>
                                 {

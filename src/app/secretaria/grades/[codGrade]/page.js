@@ -96,8 +96,6 @@ export default function page({ params }) {
         function selectById(cod) {
             handleShow()
 
-            localStorage.setItem('codTurma', cod)
-
             axios.get(`${url}/turma/${cod}`)
                 .then(response => {
                     let selects = document.querySelectorAll('select')
@@ -117,8 +115,6 @@ export default function page({ params }) {
                 .then(response => { console.log(response.data); selectAll() })
                 .catch(error => { console.log(error) })
         }
-
-        setListaFuncs({ selectById: selectById, deleteById: deleteById })
 
         const insert = () => {
             let select = document.querySelectorAll('select')
@@ -161,6 +157,8 @@ export default function page({ params }) {
                 })
                 .catch(error => { console.log(error) })
         }
+
+        setListaFuncs({ selectById: selectById, deleteById: deleteById })
 
         setFuncs({ insert: insert, update: update })
 
