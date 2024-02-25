@@ -1,6 +1,8 @@
 'use client'
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
+
 import { card } from '@/components/layoutsComponents';
 
 import { useEffect, useState, useRef } from 'react';
@@ -9,7 +11,6 @@ import axios from 'axios';
 
 
 export default function Page() {
-    const url = `http://localhost:8080`
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -19,7 +20,7 @@ export default function Page() {
         async function selectAll() {
 
             try {
-                const response = await axios.get(`${url}/aluno`);
+                const response = await axios.get(url.alunos)
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (

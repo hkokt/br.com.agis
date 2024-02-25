@@ -1,6 +1,7 @@
 "use client"
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { useEffect, useState, useRef } from 'react';
 
@@ -14,9 +15,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 export default function Page() {
-    const url = 'http://localhost:8080'
-    //https://api-agis.onrender.com
-
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -51,15 +49,16 @@ export default function Page() {
 
         async function selectALL() {
             try {
-                const response = await axios.get(`${url}/disciplina`);
+                const response = await axios.get(url.disciplinas);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
                     {
                         body: {
                             cod: item.cod,
-                            titulo: `${item.nome} - ${item.curso.sigla}/${item.curso.turno}`,
+                            titulo: `${item.nome}`,
                             p: [
+                                `Curso: ${item.curso.sigla}/${item.curso.turno}`,
                                 `Qtd. Aulas: ${item.qtdAulas}`,
                                 `Semestre: ${item.semestre}`
                             ]
@@ -85,7 +84,7 @@ export default function Page() {
                 codCurso: document.getElementsByTagName('select')[1].value,
             }
 
-            axios.post(`${url}/disciplina`, data)
+            axios.post(url.disciplinas, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -98,7 +97,7 @@ export default function Page() {
                 codCurso: document.getElementsByTagName('select')[1].value,
             }
 
-            axios.put(`${url}/disciplina/${localStorage.getItem('codDisci')}`, data)
+            axios.put(`${url.disciplinas}/${localStorage.getItem('codDisci')}`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -106,7 +105,7 @@ export default function Page() {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url}/disciplina/${cod}`)
+            axios.get(`${url.disciplinas}/${localStorage.getItem('codDisci')}`)
                 .then(response => (
                     document.querySelectorAll('select').forEach((select, i) => {
                         if (i == 0) { select.value = response.data.qtdAulas }
@@ -122,7 +121,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`${url}/disciplina/${cod}`)
+            axios.delete(`${url.disciplinas}/${cod}`)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }

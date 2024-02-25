@@ -3,13 +3,14 @@
 import layoutStyle from '@/styles/layout.module.css'
 import btStyle from '@/styles/botoes.module.css'
 
+import url from '@/components/utils'
+
 import { formCrud } from "@/components/layoutsComponents";
 import { useEffect, useState, useRef } from 'react';
 
 import axios from 'axios';
 
 export default function () {
-    const url = `http://localhost:8080`
     const myElementRef = useRef(null);
 
     const [listaCursos, setListaCurso] = useState([]);
@@ -17,7 +18,7 @@ export default function () {
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get(`${url}/curso`);
+                const response = await axios.get(url.cursos);
                 const dados = response.data;
 
                 const listaCursos = dados.map(item => (
@@ -48,7 +49,7 @@ export default function () {
                 codCurso: document.querySelector('select').value,
             }
 
-            axios.post(`${url}/aluno`, data)
+            axios.post(url.alunos, data)
                 .then(response => console.log(response.data))
                 .catch(error => console.log(error))
         }

@@ -1,6 +1,7 @@
 'use client'
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { formCrud } from '@/components/layoutsComponents'
 
@@ -16,7 +17,6 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
-    const url = 'http://localhost:8080'
     const myElementRef = useRef(null);
 
     //REDIRECT
@@ -67,7 +67,7 @@ export default function Page() {
             ano: dataAual.getFullYear()
         }
 
-        axios.post(`${url}/gradeCurricular`, data)
+        axios.post(url.grades, data)
             .then(response => {
                 insertsTurmas(response.data.cod)
                 router.push('/secretaria/grades')
@@ -94,12 +94,12 @@ export default function Page() {
                 codProfessor: professor[i].value,
                 codGradeCurricular: codGrade
             }
-            console.log(objetoDados)
+
             listaData.push(objetoDados)
         }
 
         listaData.forEach(data => {
-            axios.post(`${url}/turma`, data)
+            axios.post(url.turmas, data)
                 .then(response => { console.log(response.data) })
                 .catch(error => { console.log(error) })
         })
@@ -116,14 +116,14 @@ export default function Page() {
     useEffect(() => {
 
         // GET CURSO
-        axios.get(`${url}/curso/${localStorage.getItem('codCurso')}`)
+        axios.get(`${url.cursos}/${localStorage.getItem('codCurso')}`)
             .then(response => (
                 document.querySelector('h1').textContent = `Montar Grade | ${response.data.sigla} - ${response.data.turno}`
             ))
             .catch(error => (console.log(error)))
 
         // GET DISCIPLINAS DO CURSO
-        axios.get(`${url}/disciplina/curso/${localStorage.getItem('codCurso')}`)
+        axios.get(`${url.disciplinas}/curso/${localStorage.getItem('codCurso')}`)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
                     { text: `${item.nome}`, value: `${item.cod}` }
@@ -133,7 +133,7 @@ export default function Page() {
             .catch(error => (console.log(error)))
 
         // GET PROFESSORES
-        axios.get(`${url}/professor`)
+        axios.get(url.professores)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
                     { text: `${item.usuario.nome}`, value: `${item.cod}` }

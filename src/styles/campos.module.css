@@ -9,7 +9,12 @@
     margin-bottom: 0.75em;
 }
 
-.campo input[type='text'], .campo input[type='date'], .campo input[type='number'], .campo input[type='email'], .campo select {
+.campo input[type='text'],
+.campo input[type='date'],
+.campo input[type='number'],
+.campo input[type='email'],
+.campo input[type='password'],
+.campo select {
     background: none;
     border: none;
     border-bottom: 1px solid black;

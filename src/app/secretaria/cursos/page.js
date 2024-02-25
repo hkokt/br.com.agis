@@ -1,6 +1,7 @@
 "use client"
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { formCrud, card } from '@/components/layoutsComponents'
 
@@ -14,9 +15,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 export default function Page() {
-    const url = 'http://localhost:8080'
-    //https://api-agis.onrender.com
-
     const myElementRef = useRef(null);
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
 
@@ -31,7 +29,7 @@ export default function Page() {
     useEffect(() => {
         async function selectALL() {
             try {
-                const response = (await axios.get(`${url}/curso`))
+                const response = (await axios.get(url.cursos))
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
@@ -65,7 +63,7 @@ export default function Page() {
                 turno: document.querySelector('select').value
             }
 
-            axios.post(`${url}/curso`, data)
+            axios.post(url.cursos, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -82,7 +80,7 @@ export default function Page() {
                 turno: document.querySelector('select').value
             }
 
-            axios.put(`${url}/curso/${localStorage.getItem('codCurso')}`, data)
+            axios.put(`${url.cursos}/${localStorage.getItem('codCurso')}`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -93,7 +91,7 @@ export default function Page() {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url}/curso/${cod}`)
+            axios.get(`${url.cursos}/${cod}`)
                 .then(response => (
                     localStorage.setItem('codCurso', response.data.cod),
                     document.querySelector('input[name="Nome"]').value = response.data.nome,
@@ -108,7 +106,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`${url}/curso/${cod}`)
+            axios.delete(`${url.cursos}/${cod}`)
                 .then(response => {
                     console.log(response.data);
                     selectALL();

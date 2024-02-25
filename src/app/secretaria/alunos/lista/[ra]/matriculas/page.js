@@ -2,15 +2,13 @@
 
 import { card } from "@/components/layoutsComponents"
 
+import url from '@/components/utils'
+
 import { useEffect, useState, useRef } from 'react';
 
 import axios from "axios";
 
 export default function Page({ params }) {
-    const url = 'http://localhost:8080'
-
-    const myElementRef = useRef(null);
-
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
 
@@ -18,7 +16,7 @@ export default function Page({ params }) {
 
         async function selectALL() {
             try {
-                const response = (await axios.get(`${url}/matricula/aluno/${params.ra}`))
+                const response = (await axios.get(`${url.matriculas}/aluno/${params.ra}`))
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (

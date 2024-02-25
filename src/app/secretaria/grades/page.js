@@ -1,10 +1,9 @@
 'use client'
 
 import cardStyle from '@/styles/card.module.css'
-import camposStyle from '@/styles/campos.module.css'
+import url from '@/components/utils'
 
-import { card } from '@/components/layoutsComponents';
-import { select } from '@/components/crudComponents';
+import { card, formCrud } from '@/components/layoutsComponents';
 
 import { useEffect, useState, useRef } from 'react';
 
@@ -17,7 +16,6 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
-    const url = 'http://localhost:8080'
     const myElementRef = useRef(null);
     //REDIRECT
     const router = useRouter()
@@ -35,7 +33,7 @@ export default function Page() {
 
         async function selectCursos() {
             try {
-                const response = await axios.get(`${url}/curso`);
+                const response = await axios.get(url.cursos);
                 const dados = response.data;
 
                 const listaCursos = dados.map(item => (
@@ -53,17 +51,17 @@ export default function Page() {
 
         async function selectAll() {
             try {
-                const response = await axios.get(`${url}/gradeCurricular`);
+                const response = await axios.get(url.grades);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
                     {
                         body: {
-                            cod: item.cod, 
-                            titulo: `${item.curso.sigla} - ${item.curso.turno}`, 
-                            p: [ 
-                                `Ano: ${item.ano}`, 
-                                `Semestre: ${item.semestre}` 
+                            cod: item.cod,
+                            titulo: `${item.curso.sigla} - ${item.curso.turno}`,
+                            p: [
+                                `Ano: ${item.ano}`,
+                                `Semestre: ${item.semestre}`
                             ]
                         }
                     }
@@ -100,11 +98,13 @@ export default function Page() {
                     <Modal.Title>Selecione o Curso</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className={camposStyle.campo}>
-                        {select(
-                            { name: 'Selecione o curso', options: listaCursos }
-                        )}
-                    </div>
+                    {formCrud(
+                        {
+                            layout: [
+                                { tag: "select", nome: "Selecione o Curso", lista: listaCursos }
+                            ]
+                        }
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

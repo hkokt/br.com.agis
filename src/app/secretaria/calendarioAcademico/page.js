@@ -1,6 +1,7 @@
 "use client"
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { formCrud, card } from '@/components/layoutsComponents'
 
@@ -11,9 +12,9 @@ import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import axios from 'axios';
+
 export default function Page() {
-    const url = 'http://localhost:8080'
-    //https://api-agis.onrender.com
 
     const myElementRef = useRef(null);
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -29,7 +30,7 @@ export default function Page() {
     useEffect(() => {
         async function selectALL() {
             try {
-                const response = await axios.get(`${url}/datas`);
+                const response = await axios.get(url.datas);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
@@ -62,7 +63,7 @@ export default function Page() {
                 ehFeriado: document.querySelector('input[type="checkbox"]').checked
             }
 
-            axios.post(`${url}/datas`, data)
+            axios.post(url.datas, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -77,7 +78,7 @@ export default function Page() {
                 ehFeriado: document.querySelector('input[type="checkbox"]').checked
             }
 
-            axios.put(`${url}/datas/${localStorage.getItem('codData')}`, data)
+            axios.put(`${url.datas}/${localStorage.getItem('codData')}`, data)
                 .then(response => {
                     console.log(response.data);
                     selectALL();
@@ -88,7 +89,7 @@ export default function Page() {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url}/datas/${cod}`)
+            axios.get(`${url.datas}/${cod}`)
                 .then(response => (
                     localStorage.setItem('codData', response.data.cod),
                     document.querySelector('input[name="Data"]').value = response.data.data,
@@ -101,7 +102,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`${url}/datas/${cod}`)
+            axios.delete(`${url.datas}/${cod}`)
                 .then(response => {
                     console.log(response.data);
                     selectALL();

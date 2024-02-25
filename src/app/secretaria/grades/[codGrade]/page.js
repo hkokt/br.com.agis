@@ -1,6 +1,7 @@
 'use client'
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { card } from '@/components/layoutsComponents'
 import { formCrud } from '@/components/layoutsComponents'
@@ -15,7 +16,6 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios"
 
 export default function page({ params }) {
-    const url = 'http://localhost:8080'
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -38,15 +38,14 @@ export default function page({ params }) {
 
     useEffect(() => {
         // GET GRADE
-        axios.get(`${url}/gradeCurricular/${params.codGrade}`)
-            .then(response => {
-                document.querySelector('h1').textContent = `Visualizar Grade: ${response.data.curso.sigla} - ${response.data.curso.turno}`
-                localStorage.setItem('codCurso', response.data.curso.cod)
-            })
-            .catch(error => { console.log(error) })
+        axios.get(`${url.cursos}/${localStorage.getItem('codCurso')}`)
+            .then(response => (
+                document.querySelector('h1').textContent = `Montar Grade | ${response.data.sigla} - ${response.data.turno}`
+            ))
+            .catch(error => (console.log(error)))
 
-        // GET DISICPLINAS
-        axios.get(`${url}/disciplina/curso/${localStorage.getItem('codCurso')}`)
+        // GET DISCIPLINAS DO CURSO
+        axios.get(`${url.disciplinas}/curso/${localStorage.getItem('codCurso')}`)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
                     { text: `${item.nome}`, value: `${item.cod}` }
@@ -56,7 +55,7 @@ export default function page({ params }) {
             .catch(error => (console.log(error)))
 
         // GET PROFESSORES
-        axios.get(`${url}/professor`)
+        axios.get(url.professores)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
                     { text: `${item.usuario.nome}`, value: `${item.cod}` }
@@ -65,9 +64,10 @@ export default function page({ params }) {
             })
             .catch(error => (console.log(error)))
 
+
         async function selectAll() {
             try {
-                const response = await axios.get(`${url}/turma/grade/${params.codGrade}`);
+                const response = await axios.get(`${url.turmas}/grade/${params.codGrade}`);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
@@ -96,7 +96,7 @@ export default function page({ params }) {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url}/turma/${cod}`)
+            axios.get(`${url.turmas}/${cod}`)
                 .then(response => {
                     let selects = document.querySelectorAll('select')
 
@@ -111,7 +111,7 @@ export default function page({ params }) {
         }
 
         function deleteById(cod) {
-            axios.delete(`${url}/turma/${cod}`)
+            axios.delete(`${url.turmas}/${cod}`)
                 .then(response => { console.log(response.data); selectAll() })
                 .catch(error => { console.log(error) })
         }
@@ -129,7 +129,7 @@ export default function page({ params }) {
                 codGradeCurricular: params.codGrade
             }
 
-            axios.post(`${url}/turma`, data)
+            axios.post(url.turmas, data)
                 .then(response => {
                     console.log(response.data)
                     selectAll()
@@ -150,7 +150,7 @@ export default function page({ params }) {
                 codGradeCurricular: params.codGrade
             }
 
-            axios.put(`${url}/turma/${localStorage.getItem('codTurma')}`, data)
+            axios.put(`${url.turmas}/${localStorage.getItem('codTurma')}`, data)
                 .then(response => {
                     console.log(response.data)
                     selectAll()

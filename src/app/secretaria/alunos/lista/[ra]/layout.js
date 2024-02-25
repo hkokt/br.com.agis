@@ -1,6 +1,7 @@
 'use client'
 
 import perfilStyle from '@/styles/perfil.module.css'
+import url from '@/components/utils'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faBook, faBookOpen, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
@@ -12,12 +13,11 @@ import axios from 'axios'
 import Link from 'next/link'
 
 export default function SecViewAlunoLayout({ children, params }) {
-    const url = 'http://localhost:8080'
     const myElementRef = useRef(null);
 
     useEffect(() => {
 
-        axios.get(`${url}/aluno/${params.ra}`)
+        axios.get(`${url.alunos}/${params.ra}`)
             .then(response => {
                 document.querySelector('#nomes').innerHTML = `
                     <p>Nome: ${response.data.usuario.nome}</p>

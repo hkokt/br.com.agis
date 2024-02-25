@@ -1,6 +1,7 @@
 "use client"
 
 import cardStyle from '@/styles/card.module.css'
+import url from '@/components/utils'
 
 import { formCrud, card } from '@/components/layoutsComponents'
 
@@ -13,10 +14,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 
-
 export default function Page() {
-    const url = 'http://localhost:8080'
-    //https://api-agis.onrender.com
     const myElementRef = useRef(null);
 
     const [listaDeObjetos, setListaDeObjetos] = useState([]);
@@ -32,7 +30,7 @@ export default function Page() {
     useEffect(() => {
         async function selectAll() {
             try {
-                const response = await axios.get(`${url}/professor`);
+                const response = await axios.get(url.professores);
                 const dados = response.data;
 
                 const listaDeObjetos = dados.map(item => (
@@ -67,7 +65,7 @@ export default function Page() {
                 titulacao: document.querySelector('input[name="Titulação"]').value
             }
 
-            axios.post(`${url}/professor`, data)
+            axios.post(url.professores, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -81,7 +79,7 @@ export default function Page() {
                 titulacao: document.querySelector('input[name="Titulação"]').value
             }
 
-            axios.put(`${url}/professor/${localStorage.getItem('codProf')}`, data)
+            axios.put(`${url.professores}/${localStorage.getItem('codProf')}`, data)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }
@@ -89,7 +87,7 @@ export default function Page() {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url}/professor/${cod}`)
+            axios.get(`${url.professores}/${cod}`)
                 .then(response => (
                     localStorage.setItem('codProf', response.data.cod),
                     document.querySelector('input[name="Nome"]').value = response.data.usuario.nome,
@@ -102,7 +100,7 @@ export default function Page() {
         }
 
         function deleteById(cod) {
-            axios.delete(`${url}/professor/${cod}`)
+            axios.delete(`${url.professores}/${cod}`)
                 .then(response => (console.log(response), selectALL()))
                 .catch(error => (console.log(error)))
         }

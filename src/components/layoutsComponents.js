@@ -1,7 +1,6 @@
-import btStyle from '../styles/botoes.module.css'
 
-import camposStyle from '../styles/campos.module.css'
-import { input, select } from './crudComponents'
+import camposStyle from '@/styles/campos.module.css'
+import { input, select } from '@/components/crudComponents'
 
 export function formCrud(props) {
     return (
@@ -28,67 +27,8 @@ export function formCrud(props) {
     )
 }
 
-import tableStyle from '../styles/table.module.css'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons'
-
-export function tableCrud(props, titles, funcs) {
-    return (
-        <div className={tableStyle.divTable}>
-            <table>
-                <thead>
-                    <tr>
-                        {
-                            titles.map(th => (
-                                <th key={th}>
-                                    <div>{th}</div>
-                                </th>
-                            ))
-                        }
-                        <th colSpan={2}><div>Ações</div></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        props.map((item, i) => (
-                            <tr key={i}>
-                                {
-                                    item.body.map((text, i) => (
-                                        <td key={i}><div>{text}</div></td>
-                                    ))
-                                }
-                                {
-                                    funcs.selectById != null && (
-                                        <td>
-                                            <div>
-                                                <button className={btStyle.btForm} onClick={() => funcs.selectById(item.body[0])}>
-                                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    )
-                                }
-                                {
-                                    funcs.deleteById != null && (
-                                        <td>
-                                            <div>
-                                                <button className={btStyle.btForm} onClick={() => funcs.deleteById(item.body[0])}>
-                                                    <FontAwesomeIcon icon={faTrash} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    )
-                                }
-
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
-}
 
 import cardStyle from '@/styles/card.module.css'
 import Link from 'next/link'
