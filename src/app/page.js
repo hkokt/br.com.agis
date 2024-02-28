@@ -1,6 +1,7 @@
 'use client'
 
 import loginStyle from "@/styles/login.module.css"
+import url from "@/components/utils";
 
 import { useState, useEffect, useRef } from 'react';
 
@@ -35,22 +36,22 @@ function useWindowSize() {
 }
 
 export default function Page() {
-    const url = 'http://localhost:8080'
     const router = useRouter()
     const size = useWindowSize();
 
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value
 
-        const data = { cpf: cpf, senha: '123456' }
-        console.log(data)
-
-        axios.post(`${url}/professor/login`, data)
+        axios.post(`${url.professores}/login`, { cpf: cpf, senha: '123456' })
             .then(response => {
                 localStorage.setItem('codProf', response.data.cod)
                 router.push('/professor')
             })
             .catch(error => console.log(error))
+    }
+
+    const loginSec = () => {
+        router.push('/secretaria')
     }
 
     useEffect(() => {
@@ -79,7 +80,7 @@ export default function Page() {
                 )}
                 <div className={loginStyle.footer}>
                     <Button variant="outline-primary" onClick={loginProf}>Login Professor</Button>
-                    <Button variant="outline-primary">Login Secretaria</Button>
+                    <Button variant="outline-primary" onClick={loginSec}>Login Secretaria</Button>
                 </div>
             </div>
         </section>

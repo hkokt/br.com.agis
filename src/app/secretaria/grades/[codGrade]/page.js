@@ -38,9 +38,9 @@ export default function page({ params }) {
 
     useEffect(() => {
         // GET GRADE
-        axios.get(`${url.cursos}/${localStorage.getItem('codCurso')}`)
+        axios.get(`${url.cursos}/${params.codGrade}`)
             .then(response => (
-                document.querySelector('h1').textContent = `Montar Grade | ${response.data.sigla} - ${response.data.turno}`
+                document.querySelector('h1').textContent = `${response.data.sigla} - ${response.data.turno}`
             ))
             .catch(error => (console.log(error)))
 
@@ -95,6 +95,7 @@ export default function page({ params }) {
 
         function selectById(cod) {
             handleShow()
+            localStorage.setItem('codTurma', cod)
 
             axios.get(`${url.turmas}/${cod}`)
                 .then(response => {
@@ -118,7 +119,6 @@ export default function page({ params }) {
 
         const insert = () => {
             let select = document.querySelectorAll('select')
-
             const data = {
                 horarioInicio: select[0].value,
                 horarioFim: select[1].value,

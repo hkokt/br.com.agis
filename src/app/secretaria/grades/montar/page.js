@@ -156,7 +156,7 @@ export default function Page() {
                 </div>
                 <div className={cardStyle.overflow}>
                 </div>
-                <Button variant="primary" onClick={insert}>teste</Button>
+                <Button variant="primary" onClick={insert}>Inserir Grade</Button>
             </section>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

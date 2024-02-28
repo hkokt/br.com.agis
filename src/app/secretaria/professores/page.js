@@ -9,6 +9,8 @@ import { useEffect, useState, useRef } from 'react';
 
 import { Button, Modal } from 'react-bootstrap';
 
+import moment from 'moment';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,8 +48,6 @@ export default function Page() {
                     }
                 ))
 
-                console.log(listaDeObjetos)
-
                 setListaDeObjetos(listaDeObjetos);
             } catch (error) {
                 console.log(error);
@@ -66,7 +66,10 @@ export default function Page() {
             }
 
             axios.post(url.professores, data)
-                .then(response => (console.log(response), selectALL()))
+                .then(response => {
+                    console.log(response.data);
+                    selectAll();
+                })
                 .catch(error => (console.log(error)))
         }
 
@@ -80,7 +83,10 @@ export default function Page() {
             }
 
             axios.put(`${url.professores}/${localStorage.getItem('codProf')}`, data)
-                .then(response => (console.log(response), selectALL()))
+                .then(response => {
+                    console.log(response.data);
+                    selectAll();
+                })
                 .catch(error => (console.log(error)))
         }
 
@@ -88,20 +94,32 @@ export default function Page() {
             handleShow()
 
             axios.get(`${url.professores}/${cod}`)
-                .then(response => (
-                    localStorage.setItem('codProf', response.data.cod),
-                    document.querySelector('input[name="Nome"]').value = response.data.usuario.nome,
-                    document.querySelector('input[name="cpf"]').value = response.data.usuario.cpf,
-                    document.querySelector('input[name="Data Nasc."]').value = response.data.usuario.dataNasc,
-                    document.querySelector('input[name="Email Pessoal"]').value = response.data.usuario.emailPessoal,
-                    document.querySelector('input[name="Titulação"]').value = response.data.titulacao
-                ))
+                .then(response => {
+                    localStorage.setItem('codProf', response.data.cod)
+                        document.querySelector('input[name="Nome"]').value = response.data.usuario.nome
+                        document.querySelector('input[name="cpf"]').value = response.data.usuario.cpf
+                        document.querySelector('input[name="Email Pessoal"]').value = response.data.usuario.emailPessoal
+                        document.querySelector('input[name="Titulação"]').value = response.data.titulacao
+
+                        if (response.data.usuario.dataNasc[1] < 10) {
+                            response.data.usuario.dataNasc[1] = `0${response.data.usuario.dataNasc[1]}`
+                        }
+
+                        if (response.data.usuario.dataNasc[2] < 10) {
+                            response.data.usuario.dataNasc[2] = `0${response.data.usuario.dataNasc[2]}`
+                        }
+
+                        document.querySelector('input[name="Data Nasc."]').value = `${response.data.usuario.dataNasc[0]}-${response.data.usuario.dataNasc[1]}-${response.data.usuario.dataNasc[2]}`
+                })
                 .catch(error => (console.log(error)))
         }
 
         function deleteById(cod) {
             axios.delete(`${url.professores}/${cod}`)
-                .then(response => (console.log(response), selectALL()))
+                .then(response => {
+                    console.log(response.data);
+                    selectAll();
+                })
                 .catch(error => (console.log(error)))
         }
 

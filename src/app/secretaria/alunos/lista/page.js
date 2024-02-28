@@ -18,7 +18,6 @@ export default function Page() {
     useEffect(() => {
 
         async function selectAll() {
-
             try {
                 const response = await axios.get(url.alunos)
                 const dados = response.data;

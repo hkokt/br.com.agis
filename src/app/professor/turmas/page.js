@@ -28,8 +28,8 @@ export default function page() {
                             titulo: `${item.disciplina.nome} - ${item.disciplina.semestre}`,
                             p: [
                                 `De ${item.horarioInicio} até ${item.horarioFim}`,
-                                `Dia da Semanada: ${item.diaDaSemana}`,
-                                `Professor: ${item.professor.usuario.nome}`
+                                `Dia da Semana: ${item.diaDaSemana}`,
+                                `Situação: ${item.situacao}`
                             ]
                         }
                     }

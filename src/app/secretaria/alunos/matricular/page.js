@@ -10,6 +10,19 @@ import { useEffect, useState, useRef } from 'react';
 
 import axios from 'axios';
 
+function limpaCampos() {
+    document.querySelector('[name="CPF"]').value = ""
+    document.querySelector('[name="Nome"]').value = ""
+    document.querySelector('[name="Nome Social"]').value = ""
+    document.querySelector('[name="Data Nasc."]').value = ""
+    document.querySelector('[name="Data de Conclusão do 2°"]').value = ""
+    document.querySelector('[name="Instituição de Conclusão do 2°"]').value = ""
+    document.querySelector('[name="Email Pessoal"]').value = ""
+    document.querySelector('[name="Pontuação no vestibular"]').value = ""
+    document.querySelector('[name="Posição no Vestibular"]').value = ""
+    document.querySelector('select').value = 1
+}
+
 export default function () {
     const myElementRef = useRef(null);
 
@@ -50,7 +63,7 @@ export default function () {
             }
 
             axios.post(url.alunos, data)
-                .then(response => console.log(response.data))
+                .then(response => console.log(response.data), limpaCampos() )
                 .catch(error => console.log(error))
         }
 

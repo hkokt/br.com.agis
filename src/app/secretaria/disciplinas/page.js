@@ -34,7 +34,7 @@ export default function Page() {
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get(`${url}/curso`);
+                const response = await axios.get(url.cursos);
                 const dados = response.data;
 
                 const listaCursos = dados.map(item => (
@@ -105,7 +105,7 @@ export default function Page() {
         function selectById(cod) {
             handleShow()
 
-            axios.get(`${url.disciplinas}/${localStorage.getItem('codDisci')}`)
+            axios.get(`${url.disciplinas}/${cod}`)
                 .then(response => (
                     document.querySelectorAll('select').forEach((select, i) => {
                         if (i == 0) { select.value = response.data.qtdAulas }

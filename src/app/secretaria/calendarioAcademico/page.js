@@ -36,7 +36,7 @@ export default function Page() {
                 const listaDeObjetos = dados.map(item => (
                     {
                         body: {
-                            cod: item.cod,
+                            cod: item.descricao,
                             titulo: `${item.descricao}`,
                             p: [
                                 `Data: ${item.data}`,
@@ -45,8 +45,6 @@ export default function Page() {
                         }
                     }
                 ));
-
-                console.log(listaDeObjetos)
 
                 setListaDeObjetos(listaDeObjetos);
             } catch (error) {
@@ -71,48 +69,9 @@ export default function Page() {
                 .catch(error => console.log(error))
         }
 
-        const update = () => {
-            const data = {
-                data: document.querySelector('input[name="Data"]').value,
-                descricao: document.querySelector('select').value,
-                ehFeriado: document.querySelector('input[type="checkbox"]').checked
-            }
+        setlistaFuncs({ selectById: null, deleteById: null })
 
-            axios.put(`${url.datas}/${localStorage.getItem('codData')}`, data)
-                .then(response => {
-                    console.log(response.data);
-                    selectALL();
-                })
-                .catch(error => console.log(error))
-        }
-
-        function selectById(cod) {
-            handleShow()
-
-            axios.get(`${url.datas}/${cod}`)
-                .then(response => (
-                    localStorage.setItem('codData', response.data.cod),
-                    document.querySelector('input[name="Data"]').value = response.data.data,
-                    document.querySelector('select').value = response.data.descricao,
-                    document.querySelector('input[type="checkbox"]').checked = response.data.ehFeriado
-                ))
-                .catch(error => (
-                    console.log(error)
-                ))
-        }
-
-        function deleteById(cod) {
-            axios.delete(`${url.datas}/${cod}`)
-                .then(response => {
-                    console.log(response.data);
-                    selectALL();
-                })
-                .catch(error => (console.log(error)))
-        }
-
-        setlistaFuncs({ selectById: selectById, deleteById: deleteById })
-
-        setFuncs({ insert: insert, update: update })
+        setFuncs({ insert: insert, update: null })
 
     }, [])
 

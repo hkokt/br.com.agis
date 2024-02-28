@@ -15,14 +15,22 @@ import axios from 'axios'
 export default function ProfViewTurmaLayout({ children, params }) {
     const myElementRef = useRef(null);
 
+    useEffect(() => {
+        axios.get(`${url.turmas}/${params.codTurma}`)
+            .then(response => {
+                document.querySelector('h1').innerHTML = `<b>${response.data.disciplina.nome}</b>`
+            })
+            .catch(error => console.log(error))
+    }, [])
+
     return (
         <div className={perfilStyle.site} ref={myElementRef}>
             <div className={perfilStyle.navigation}>
-                <h1>Nome da turma</h1>
+                <h1></h1>
                 <article>
                     <span>
                         <FontAwesomeIcon icon={faClipboard} className={perfilStyle.iconSize} />
-                        <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
+                        <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/professor/turmas/${params.codTurma}`}>
                             Realizar Chamada
                         </Link>
                     </span>
