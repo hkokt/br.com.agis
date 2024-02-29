@@ -9,8 +9,6 @@ import { useEffect, useState, useRef } from 'react';
 
 import { Button, Modal } from 'react-bootstrap';
 
-import moment from 'moment';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 

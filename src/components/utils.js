@@ -5,6 +5,7 @@ export default {
     server: server,
     alunos: `${server}/alunos`,
     cursos: `${server}/cursos`,
+    chamadas: `${server}/chamadas`,
     datas: `${server}/datas`,
     disciplinas: `${server}/disciplinas`,
     grades: `${server}/grades`,

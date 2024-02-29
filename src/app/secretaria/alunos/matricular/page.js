@@ -1,6 +1,5 @@
 'use client'
 
-import layoutStyle from '@/styles/layout.module.css'
 import btStyle from '@/styles/botoes.module.css'
 
 import url from '@/components/utils'
@@ -70,10 +69,9 @@ export default function () {
     }, []);
 
     return (
-        <div className={layoutStyle.site} ref={myElementRef}>
-            <div className={layoutStyle.aling}>
-
-                <div className={layoutStyle.col}>
+        <div ref={myElementRef}>
+            <div>
+                <div>
                     {formCrud(
                         {
                             layout: [

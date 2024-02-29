@@ -82,6 +82,7 @@ export default function page({ params }) {
 
     return (
         <div ref={myElementRef}>
+            <h2>Realizar Chamada</h2>
             {card(listaDeObjetos, `/professor/turmas/${params.codTurma}/`, [])}
         </div>
     )

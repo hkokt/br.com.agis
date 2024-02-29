@@ -1,6 +1,8 @@
 'use client'
 
+import cardStyle from '@/styles/card.module.css'
 import perfilStyle from '@/styles/perfil.module.css'
+
 import url from '@/components/utils'
 
 import { useEffect, useRef, useState } from 'react'
@@ -18,15 +20,15 @@ export default function ProfViewTurmaLayout({ children, params }) {
     useEffect(() => {
         axios.get(`${url.turmas}/${params.codTurma}`)
             .then(response => {
-                document.querySelector('h1').innerHTML = `<b>${response.data.disciplina.nome}</b>`
+                document.querySelector('h1').innerHTML = `${response.data.disciplina.nome}`
             })
             .catch(error => console.log(error))
     }, [])
 
     return (
         <div className={perfilStyle.site} ref={myElementRef}>
+            <h1></h1>
             <div className={perfilStyle.navigation}>
-                <h1></h1>
                 <article>
                     <span>
                         <FontAwesomeIcon icon={faClipboard} className={perfilStyle.iconSize} />
