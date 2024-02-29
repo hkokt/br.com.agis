@@ -3,11 +3,9 @@
 import cardStyle from '@/styles/card.module.css'
 import url from '@/components/utils'
 
-import { formCrud, card } from '@/components/layoutsComponents'
+import { modal, card } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
-
-import { Button, Modal } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -21,11 +19,12 @@ export default function Page() {
 
     const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
+    const [mensagem, setMensagem] = useState([])
 
     //MODAL
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => { setShow(true); setMensagem('criar') };
 
     useEffect(() => {
         async function selectAll() {
@@ -89,25 +88,25 @@ export default function Page() {
         }
 
         function selectById(cod) {
-            handleShow()
+            setShow(true); setMensagem('atualizar')
 
             axios.get(`${url.professores}/${cod}`)
                 .then(response => {
                     localStorage.setItem('codProf', response.data.cod)
-                        document.querySelector('input[name="Nome"]').value = response.data.usuario.nome
-                        document.querySelector('input[name="cpf"]').value = response.data.usuario.cpf
-                        document.querySelector('input[name="Email Pessoal"]').value = response.data.usuario.emailPessoal
-                        document.querySelector('input[name="Titulação"]').value = response.data.titulacao
+                    document.querySelector('input[name="Nome"]').value = response.data.usuario.nome
+                    document.querySelector('input[name="cpf"]').value = response.data.usuario.cpf
+                    document.querySelector('input[name="Email Pessoal"]').value = response.data.usuario.emailPessoal
+                    document.querySelector('input[name="Titulação"]').value = response.data.titulacao
 
-                        if (response.data.usuario.dataNasc[1] < 10) {
-                            response.data.usuario.dataNasc[1] = `0${response.data.usuario.dataNasc[1]}`
-                        }
+                    if (response.data.usuario.dataNasc[1] < 10) {
+                        response.data.usuario.dataNasc[1] = `0${response.data.usuario.dataNasc[1]}`
+                    }
 
-                        if (response.data.usuario.dataNasc[2] < 10) {
-                            response.data.usuario.dataNasc[2] = `0${response.data.usuario.dataNasc[2]}`
-                        }
+                    if (response.data.usuario.dataNasc[2] < 10) {
+                        response.data.usuario.dataNasc[2] = `0${response.data.usuario.dataNasc[2]}`
+                    }
 
-                        document.querySelector('input[name="Data Nasc."]').value = `${response.data.usuario.dataNasc[0]}-${response.data.usuario.dataNasc[1]}-${response.data.usuario.dataNasc[2]}`
+                    document.querySelector('input[name="Data Nasc."]').value = `${response.data.usuario.dataNasc[0]}-${response.data.usuario.dataNasc[1]}-${response.data.usuario.dataNasc[2]}`
                 })
                 .catch(error => (console.log(error)))
         }
@@ -136,35 +135,18 @@ export default function Page() {
 
             {card(listaDeObjetos, '', listaFuncs)}
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crud</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {formCrud(
-                        {
-                            layout: [
-                                { tag: "input", nome: "Nome", tipo: "text" },
-                                { tag: "input", nome: "cpf", tipo: "text" },
-                                { tag: "input", nome: "Data Nasc.", tipo: "date" },
-                                { tag: "input", nome: "Titulação", tipo: "text" },
-                                { tag: "input", nome: "Email Pessoal", tipo: "email" }
-                            ]
-                        }
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={funcs.insert}>
-                        Criar
-                    </Button>
-                    <Button variant="primary" onClick={funcs.update}>
-                        Atualizar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            {modal(
+                show, handleClose, mensagem, funcs,
+                {
+                    layout: [
+                        { tag: "input", nome: "Nome", tipo: "text" },
+                        { tag: "input", nome: "cpf", tipo: "text" },
+                        { tag: "input", nome: "Data Nasc.", tipo: "date" },
+                        { tag: "input", nome: "Titulação", tipo: "text" },
+                        { tag: "input", nome: "Email Pessoal", tipo: "email" }
+                    ]
+                }
+            )}
         </section>
     )
 }

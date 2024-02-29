@@ -1,4 +1,3 @@
-
 import camposStyle from '@/styles/campos.module.css'
 import { input, select } from '@/components/crudComponents'
 
@@ -82,5 +81,44 @@ export function card(props, link, funcs) {
                 ))
             }
         </div>
+    )
+}
+
+import { Button, Modal } from 'react-bootstrap';
+
+export function modal(show, handleClose, mensagem, funcs, layout) {
+
+    return (
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Crud</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {
+                    formCrud(
+                        layout
+                    )
+                }
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                {
+                    mensagem === 'criar' && (
+                        <Button variant="primary" onClick={funcs.insert}>
+                            Criar
+                        </Button>
+                    )
+                }
+                {
+                    mensagem === 'atualizar' && (
+                        <Button variant="primary" onClick={funcs.update}>
+                            atualizar
+                        </Button>
+                    )
+                }
+            </Modal.Footer>
+        </Modal>
     )
 }

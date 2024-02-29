@@ -3,11 +3,9 @@
 import cardStyle from '@/styles/card.module.css'
 import url from '@/components/utils'
 
-import { formCrud, card } from '@/components/layoutsComponents'
+import { card, modal } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
-
-import { Button, Modal } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -21,10 +19,12 @@ export default function Page() {
     const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
 
+    const [mensagem, setMensagem] = useState([])
+    
     //MODAL
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => { setShow(true); setMensagem('criar')};
 
     useEffect(() => {
         async function selectALL() {
@@ -89,7 +89,7 @@ export default function Page() {
         }
 
         function selectById(cod) {
-            handleShow()
+            setShow(true); setMensagem('atualizar')
 
             axios.get(`${url.cursos}/${cod}`)
                 .then(response => (
@@ -129,37 +129,19 @@ export default function Page() {
 
             {card(listaDeObjetos, '', listaFuncs)}
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crud</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {
-                        formCrud(
-                            {
-                                layout: [
-                                    { tag: "input", nome: "Nome", tipo: "text" },
-                                    { tag: "input", nome: "Carga horaria", tipo: "number" },
-                                    { tag: "input", nome: "Sigla", tipo: "text" },
-                                    { tag: "input", nome: "Enade", tipo: "number" },
-                                    { tag: "select", nome: "Turno", lista: [{ text: 'Manhã', value: 'Manhã' }, { text: 'Tarde', value: 'Tarde' }, { text: 'Noite', value: 'Noite' }] }
-                                ]
-                            }
-                        )
-                    }
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={funcs.insert}>
-                        Criar
-                    </Button>
-                    <Button variant="primary" onClick={funcs.update}>
-                        Atualizar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            {modal(
+                show, handleClose, mensagem, funcs,
+                {
+                    layout: [
+                        { tag: "input", nome: "Nome", tipo: "text" },
+                        { tag: "input", nome: "Carga horaria", tipo: "number" },
+                        { tag: "input", nome: "Sigla", tipo: "text" },
+                        { tag: "input", nome: "Enade", tipo: "number" },
+                        { tag: "select", nome: "Turno", lista: [{ text: 'Manhã', value: 'Manhã' }, { text: 'Tarde', value: 'Tarde' }, { text: 'Noite', value: 'Noite' }] }
+                    ]
+                }
+            )}
+
         </section>
     )
 }

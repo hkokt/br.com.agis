@@ -3,11 +3,9 @@
 import cardStyle from '@/styles/card.module.css'
 import url from '@/components/utils'
 
-import { formCrud, card } from '@/components/layoutsComponents'
+import { modal, card } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
-
-import { Button, Modal } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -22,10 +20,12 @@ export default function Page() {
     const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
 
+    const [mensagem, setMensagem] = useState([])
+
     //MODAL
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => { setShow(true); setMensagem('criar') };
 
     useEffect(() => {
         async function selectALL() {
@@ -84,33 +84,16 @@ export default function Page() {
 
             {card(listaDeObjetos, '', listaFuncs)}
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crud</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {formCrud(
-                        {
-                            layout: [
-                                { tag: "input", nome: "Data", tipo: "date" },
-                                { tag: "select", nome: "descricao", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
-                                { tag: 'input', nome: 'É feriado?', tipo: 'checkbox' }
-                            ]
-                        }
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={funcs.insert}>
-                        Criar
-                    </Button>
-                    <Button variant="primary" onClick={funcs.update}>
-                        Atualizar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            {modal(
+                show, handleClose, mensagem, funcs,
+                {
+                    layout: [
+                        { tag: "input", nome: "Data", tipo: "date" },
+                        { tag: "select", nome: "descricao", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
+                        { tag: 'input', nome: 'É feriado?', tipo: 'checkbox' }
+                    ]
+                }
+            )}
         </section>
     )
 }

@@ -5,9 +5,7 @@ import url from '@/components/utils'
 
 import { useEffect, useState, useRef } from 'react';
 
-import { card, formCrud } from '@/components/layoutsComponents';
-
-import { Button, Modal } from 'react-bootstrap';
+import { card, modal } from '@/components/layoutsComponents';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -22,14 +20,15 @@ export default function Page() {
     const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setlistaFuncs] = useState([]);
 
+    const [mensagem, setMensagem] = useState([])
 
     //DADOS
     const [listaCursos, setListaCurso] = useState([]);
 
     //MODAL
     const [show, setShow] = useState(false);
-    const handleClose = () => { setShow(false), localStorage.removeItem('codTurma') };
-    const handleShow = () => setShow(true);
+    const handleClose = () => { setShow(false) };
+    const handleShow = () => { setShow(true); setMensagem('criar')};
 
     useEffect(() => {
         async function selectCursos() {
@@ -103,7 +102,7 @@ export default function Page() {
         }
 
         function selectById(cod) {
-            handleShow()
+            setShow(true); setMensagem('atualizar')
 
             axios.get(`${url.disciplinas}/${cod}`)
                 .then(response => (
@@ -140,34 +139,17 @@ export default function Page() {
 
             {card(listaDeObjetos, '', listaFuncs)}
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crud</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {formCrud(
-                        {
-                            layout: [
-                                { tag: "input", nome: "Nome", tipo: "text" },
-                                { tag: "select", nome: "Qtd. Aula", lista: [{ text: 0, value: 0 }, { text: 2, value: 2 }, { text: 4, value: 4 }] },
-                                { tag: "input", nome: "Semestre", tipo: "number" },
-                                { tag: "select", nome: "Cursos", lista: listaCursos }
-                            ]
-                        }
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={funcs.insert}>
-                        Criar
-                    </Button>
-                    <Button variant="primary" onClick={funcs.update}>
-                        Atualizar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            {modal(
+                show, handleClose, mensagem, funcs,
+                {
+                    layout: [
+                        { tag: "input", nome: "Nome", tipo: "text" },
+                        { tag: "select", nome: "Qtd. Aula", lista: [{ text: 0, value: 0 }, { text: 2, value: 2 }, { text: 4, value: 4 }] },
+                        { tag: "input", nome: "Semestre", tipo: "number" },
+                        { tag: "select", nome: "Cursos", lista: listaCursos }
+                    ]
+                }
+            )}
         </section>
     )
 }
