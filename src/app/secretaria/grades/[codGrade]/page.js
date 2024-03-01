@@ -3,15 +3,11 @@
 import cardStyle from '@/styles/card.module.css'
 import url from '@/components/utils'
 
-import { card } from '@/components/layoutsComponents'
-import { formCrud } from '@/components/layoutsComponents'
+import { card, modal } from '@/components/layoutsComponents'
 
 import { useState, useEffect, useRef } from "react"
 
 import { Button, Modal } from 'react-bootstrap';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import axios from "axios"
 
@@ -23,24 +19,24 @@ export default function page({ params }) {
     const [funcs, setFuncs] = useState([]);
     const [listaFuncs, setListaFuncs] = useState([]);
 
+    const [mensagem, setMensagem] = useState([])
+
     //LISTAS
     const horarios = [{ text: '13:00', value: '13:00' }, { text: '14:50', value: '14:50' }, { text: '16:30', value: '16:30' }, { text: '18:20', value: '18:20' }]
     const diasDaSemana = [{ text: 'Segunda', value: 'Segunda' }, { text: 'Terça', value: 'Terça' }, { text: 'Quarta', value: 'Quarta' }, { text: 'Quinta', value: 'Quinta' }, { text: 'Sexta', value: 'Sexta' }, { text: 'Sabádo', value: 'Sabádo' }]
-
-    //DADOS
     const [listaDisciplinas, setListaDisciplinas] = useState([]);
     const [listaProfessores, setListaProfessores] = useState([]);
 
     //MODAL
     const [show, setShow] = useState(false);
-    const handleClose = () => { setShow(false),  localStorage.removeItem('codTurma') };
-    const handleShow = () => setShow(true);
+    const handleClose = () => { setShow(false), localStorage.removeItem('codTurma') };
+    const handleShow = () => { setShow(true); setMensagem('criar')};
 
     useEffect(() => {
         // GET GRADE
-        axios.get(`${url.cursos}/${params.codGrade}`)
+        axios.get(`${url.grades}/${params.codGrade}`)
             .then(response => (
-                document.querySelector('h1').textContent = `${response.data.sigla} - ${response.data.turno}`
+                document.querySelector('h1').textContent = `${response.data.curso.sigla} - ${response.data.curso.turno}`
             ))
             .catch(error => (console.log(error)))
 
@@ -82,7 +78,7 @@ export default function page({ params }) {
                             ]
                         }
                     }
-                ));
+                ))
 
                 setListaDeObjetos(listaDeObjetos);
 
@@ -92,30 +88,6 @@ export default function page({ params }) {
         }
 
         selectAll();
-
-        function selectById(cod) {
-            handleShow()
-            localStorage.setItem('codTurma', cod)
-
-            axios.get(`${url.turmas}/${cod}`)
-                .then(response => {
-                    let selects = document.querySelectorAll('select')
-
-                    selects[0].value = response.data.horarioInicio
-                    selects[1].value = response.data.horarioFim
-                    selects[2].value = response.data.diaDaSemana
-                    selects[3].value = response.data.disciplina.cod
-                    selects[4].value = response.data.professor.cod
-                })
-                .catch(error => { console.log(error) })
-
-        }
-
-        function deleteById(cod) {
-            axios.delete(`${url.turmas}/${cod}`)
-                .then(response => { console.log(response.data); selectAll() })
-                .catch(error => { console.log(error) })
-        }
 
         const insert = () => {
             let select = document.querySelectorAll('select')
@@ -153,8 +125,35 @@ export default function page({ params }) {
             axios.put(`${url.turmas}/${localStorage.getItem('codTurma')}`, data)
                 .then(response => {
                     console.log(response.data)
+                    setShow(false)
                     selectAll()
                 })
+                .catch(error => { console.log(error) })
+        }
+
+
+        function selectById(cod) {
+            setShow(true); setMensagem('atualizar')
+
+            localStorage.setItem('codTurma', cod)
+
+            axios.get(`${url.turmas}/${cod}`)
+                .then(response => {
+                    let selects = document.querySelectorAll('select')
+
+                    selects[0].value = response.data.horarioInicio
+                    selects[1].value = response.data.horarioFim
+                    selects[2].value = response.data.diaDaSemana
+                    selects[3].value = response.data.disciplina.cod
+                    selects[4].value = response.data.professor.cod
+                })
+                .catch(error => { console.log(error) })
+
+        }
+
+        function deleteById(cod) {
+            axios.delete(`${url.turmas}/${cod}`)
+                .then(response => { console.log(response.data); selectAll() })
                 .catch(error => { console.log(error) })
         }
 
@@ -170,41 +169,24 @@ export default function page({ params }) {
                 <div className={cardStyle.title}>
                     <h1></h1>
                     <div>
-                        <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+                        <Button className={cardStyle.bt} onClick={handleShow}>Adicionar Turma</Button>
                     </div>
                 </div>
 
                 {card(listaDeObjetos, '', listaFuncs)}
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Criar Turma</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {formCrud(
-                            {
-                                layout: [
-                                    { tag: "select", nome: "Horário início", lista: horarios },
-                                    { tag: "select", nome: "Horario Final", lista: horarios },
-                                    { tag: "select", nome: "Dia da Semana", lista: diasDaSemana },
-                                    { tag: "select", nome: "Disciplina", lista: listaDisciplinas },
-                                    { tag: "select", nome: "Professor", lista: listaProfessores }
-                                ]
-                            }
-                        )}
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={funcs.insert}>
-                            Criar
-                        </Button>
-                        <Button variant="primary" onClick={funcs.update}>
-                            Atualizar
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                {modal(
+                    show, handleClose, mensagem, funcs,
+                    {
+                        layout: [
+                            { tag: "select", nome: "Horário início", lista: horarios },
+                            { tag: "select", nome: "Horario Final", lista: horarios },
+                            { tag: "select", nome: "Dia da Semana", lista: diasDaSemana },
+                            { tag: "select", nome: "Disciplina", lista: listaDisciplinas },
+                            { tag: "select", nome: "Professor", lista: listaProfessores }
+                        ]
+                    }
+                )}
             </section>
         </>
     )

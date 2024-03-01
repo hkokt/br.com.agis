@@ -82,8 +82,9 @@ export default function Page() {
 
             axios.put(`${url.cursos}/${localStorage.getItem('codCurso')}`, data)
                 .then(response => {
-                    console.log(response.data);
-                    selectALL();
+                    console.log(response.data)
+                    setShow(false)
+                    selectALL()
                 })
                 .catch(error => console.log(error))
         }

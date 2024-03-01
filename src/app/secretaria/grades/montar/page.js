@@ -7,7 +7,7 @@ import { card, modal } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
 
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -101,42 +101,42 @@ export default function Page() {
 
             axios.post(url.grades, dataGrade)
                 .then(response => {
-                    console.log(response.data)
                     localStorage.setItem('codGrade', response.data.cod)
+                    insertTurmas();
                 })
                 .catch(error => console.log(error))
-
-            // INSERT TURMAS
-            const listaData = []
-
-            let inputs = document.querySelectorAll('[name="cod"]')
-                
-            inputs.forEach(input => {
-                let dadosObjeto = input.value.split(',')
-
-                const objeto = {
-                    horarioInicio: dadosObjeto[0],
-                    horarioFim: dadosObjeto[1],
-                    diaDaSemana: dadosObjeto[2],
-                    situacao: 'aberta',
-                    codDisciplina: dadosObjeto[3],
-                    codProfessor: dadosObjeto[4],
-                    codGradeCurricular: localStorage.getItem('codGrade')
-                }
-
-                listaData.push(objeto)
-            })
-
-            listaData.forEach(data => {
-                axios.post(url.turmas, data)
-                    .then(response => { console.log(response.data) })
-                    .catch(error => console.log(error))
-            })
-
-            localStorage.removeItem('codGrade')
-            router.push('/secretaria/grades')
         }
+    }
 
+    const insertTurmas = () => {
+        const listaData = []
+
+        let inputs = document.querySelectorAll('[name="cod"]')
+
+        inputs.forEach(input => {
+            let dadosObjeto = input.value.split(',')
+
+            const objeto = {
+                horarioInicio: dadosObjeto[0],
+                horarioFim: dadosObjeto[1],
+                diaDaSemana: dadosObjeto[2],
+                situacao: 'aberta',
+                codDisciplina: dadosObjeto[3],
+                codProfessor: dadosObjeto[4],
+                codGradeCurricular: localStorage.getItem('codGrade')
+            }
+
+            listaData.push(objeto)
+        })
+
+        listaData.forEach(data => {
+            axios.post(url.turmas, data)
+                .then(response => { console.log(response.data) })
+                .catch(error => console.log(error))
+        })
+
+        localStorage.removeItem('codGrade')
+        router.push('/secretaria/grades')
     }
 
     return (
@@ -156,7 +156,7 @@ export default function Page() {
             </section>
 
             {modal(
-                show, handleClose, 'criar', { insert: create},
+                show, handleClose, 'criar', { insert: create },
                 {
                     layout: [
                         { tag: "select", nome: "Horário início", lista: horarios },

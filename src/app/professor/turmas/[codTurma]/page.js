@@ -61,21 +61,24 @@ export default function page({ params }) {
                 const listaDeObjetos = []
 
                 for (let i = 0; i <= 20; i++) {
-                    listaDeObjetos.push(
-                        {
-                            body: {
-                                cod: data.format("DD/MM/YYYY"),
-                                titulo: `${data.format("DD/MM/YYYY")}`,
-                                p: []
-                            }
+                    axios.get(`${url.chamadas}/${params.codTurma}/${data.format(`YYYY-MM-DD`)}`)
+                        
+
+                    listaDeObjetos.push({
+                        body: {
+                            cod: data.format("DD/MM/YYYY"),
+                            titulo: `${data.format("DD/MM/YYYY")}`,
+                            p: [
+                                ``
+                            ]
                         }
-                    )
+                    })
+
                     data.add(1, 'weeks')
                 }
 
                 setListaDeObjetos(listaDeObjetos)
             })
-            .catch(error => console.log(error))
 
     }, [])
 
@@ -87,3 +90,38 @@ export default function page({ params }) {
         </div>
     )
 }
+/*
+     axios.get(`${url.turmas}/${params.codTurma}`)
+            .then(response => {
+                let data = calculaDataInicio(response.data.diaDaSemana)
+                const listaDeObjetos = []
+
+                for (let i = 0; i <= 20; i++) {
+
+
+                    axios.get(`${url.chamadas}/${params.codTurma}/${data.format('YYYY-MM-DD')}`)
+                        .then(response => {
+                            console.log(response.data)
+                            localStorage.setItem('chamada', response.data)
+                        })
+                        .catch(error => console.log(error))
+
+                    const objeto = {
+                        body: {
+                            cod: data.format("DD/MM/YYYY"),
+                            titulo: `${data.format("DD/MM/YYYY")}`,
+                            p: [
+                                `${localStorage.getItem('chamada')}`
+                            ]
+                        }
+                    }
+
+                    listaDeObjetos.push(objeto)
+
+                    data.add(1, 'weeks')
+                }
+
+                setListaDeObjetos(listaDeObjetos)
+            })
+            .catch(error => console.log(error))
+*/

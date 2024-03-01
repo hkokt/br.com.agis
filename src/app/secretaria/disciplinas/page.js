@@ -97,7 +97,11 @@ export default function Page() {
             }
 
             axios.put(`${url.disciplinas}/${localStorage.getItem('codDisci')}`, data)
-                .then(response => (console.log(response), selectALL()))
+                .then(response => { 
+                    console.log(response) 
+                    setShow(false);
+                    selectALL()
+                })
                 .catch(error => (console.log(error)))
         }
 

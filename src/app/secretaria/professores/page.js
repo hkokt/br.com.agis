@@ -82,6 +82,7 @@ export default function Page() {
             axios.put(`${url.professores}/${localStorage.getItem('codProf')}`, data)
                 .then(response => {
                     console.log(response.data);
+                    setShow(false);
                     selectAll();
                 })
                 .catch(error => (console.log(error)))
