@@ -1,43 +1,22 @@
 'use client'
 
-import loginStyle from "@/styles/login.module.css"
+import css from "@/styles/estilos.module.scss";
 import url from "@/components/utils";
 
 import { useState, useEffect, useRef } from 'react';
 
-import { formCrud } from "@/components/layoutsComponents"
+import { formCrud, Footer } from "@/components/layoutsComponents"
 
-import { Button, Image } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";;
 
 import axios from "axios";
 
-function useWindowSize() {
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
-    });
-
-    useEffect(() => {
-        function handleResize() {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    return windowSize;
-}
+import Image from 'next/image';
 
 export default function Page() {
     const router = useRouter()
-    const size = useWindowSize();
 
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value
@@ -54,35 +33,32 @@ export default function Page() {
         router.push('/secretaria')
     }
 
-    useEffect(() => {
-        const element = document.querySelector('#display');
-
-        if (element) {
-            element.style.height = `${size.height - 50}px`;
-        }
-
-    }, [size.height]);
-
     return (
-        <section className={loginStyle.display} id="display">
-            <div className={loginStyle.layout}>
-                <div className={loginStyle.title}>
-                    <Image src="/imgs/logo2.png" width={60} height={60} alt='Logo' />
-                    <h1>Login</h1>
+        <>
+            <section>
+
+            </section>
+            <section className={css.display}>
+                <div className={css.form}>
+                    <div className={css.title}>
+                        <Image className={css.logo} src="/imgs/logo.png" alt="Descrição da imagem" width={1000} height={1000} />
+                        <h1 className={css.h1}>Login</h1>
+                    </div>
+                    {formCrud(
+                        {
+                            layout: [
+                                { tag: "input", nome: "CPF", tipo: "text" },
+                                { tag: "input", nome: "Senha", tipo: "password" }
+                            ]
+                        }
+                    )}
+                    <div className={css.center}>
+                        <Button className={css.btn} onClick={loginProf}>Login Professor</Button>
+                        <Button className={css.btn} onClick={loginSec}>Login Secretaria</Button>
+                    </div>
                 </div>
-                {formCrud(
-                    {
-                        layout: [
-                            { tag: "input", nome: "CPF", tipo: "text" },
-                            { tag: "input", nome: "Senha", tipo: "password" }
-                        ]
-                    }
-                )}
-                <div className={loginStyle.footer}>
-                    <Button variant="outline-primary" onClick={loginProf}>Login Professor</Button>
-                    <Button variant="outline-primary" onClick={loginSec}>Login Secretaria</Button>
-                </div>
-            </div>
-        </section>
+                <Footer />
+            </section>
+        </>
     )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { modal, card } from '@/components/layoutsComponents'
@@ -76,10 +76,10 @@ export default function Page() {
     }, [])
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
-                <h1>Calendário Acadêmico</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+        <section className={css.form} ref={myElementRef}>
+            <div className={css.center}>
+                <h1 className={css.h1}>Calendário Acadêmico</h1>
+                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}
@@ -89,7 +89,7 @@ export default function Page() {
                 {
                     layout: [
                         { tag: "input", nome: "Data", tipo: "date" },
-                        { tag: "select", nome: "descricao", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
+                        { tag: "select", nome: "Descrição", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
                         { tag: 'input', nome: 'É feriado?', tipo: 'checkbox' }
                     ]
                 }

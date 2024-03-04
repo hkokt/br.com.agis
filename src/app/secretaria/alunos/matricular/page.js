@@ -1,6 +1,6 @@
 'use client'
 
-import loginStyle from '@/styles/login.module.css'
+import css from '@/styles/estilos.module.scss'
 
 import url from '@/components/utils'
 
@@ -69,15 +69,15 @@ export default function () {
     }
 
     return (
-        <div className={loginStyle.display} ref={myElementRef}>
-            <div className={loginStyle.layout}>
+        <div className={css.display} ref={myElementRef}>
+            <div className={css.form}>
                 {formCrud(
                     {
                         layout: [
                             { tag: "input", nome: "Nome", tipo: "text" },
                             { tag: "input", nome: "Nome Social", tipo: "text" },
                             { tag: "input", nome: "CPF", tipo: "text" },
-                            { tag: "input", nome: "Data Nasc.", tipo: "date" },
+                            { tag: "input", nome: "Data de Nascimento", tipo: "date" },
                             { tag: "input", nome: "Instituição de Conclusão do 2°", tipo: "text" },
                             { tag: "input", nome: "Data de Conclusão do 2°", tipo: "date" },
                             { tag: "input", nome: "Email Pessoal", tipo: "text" },
@@ -88,10 +88,9 @@ export default function () {
                     }
                 )}
 
-                <Button variant="outline-primary" onClick={insert}>Matricular</Button>
+                <Button className={css.btn} onClick={insert}>Matricular</Button>
 
             </div>
-
         </div>
     )
 }

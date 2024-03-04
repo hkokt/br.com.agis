@@ -1,5 +1,9 @@
+import css from "@/styles/estilos.module.scss";
+
 export default function homeSec() {
     return (
-        <h1>Bem Vindo</h1>
+        <div className={css.title}>
+            <h1 className={css.h1}>Boas Vindas</h1>
+        </div>
     )
 }

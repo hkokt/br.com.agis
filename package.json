@@ -17,9 +17,11 @@
     "bootstrap-icons": "^1.11.3",
     "moment": "^2.30.1",
     "next": "14.1.0",
+    "npm": "^10.5.0",
     "react": "^18",
     "react-bootstrap": "^2.10.0",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sass": "^1.71.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

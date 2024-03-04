@@ -1,6 +1,6 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { card } from '@/components/layoutsComponents';
@@ -8,7 +8,6 @@ import { card } from '@/components/layoutsComponents';
 import { useEffect, useState, useRef } from 'react';
 
 import axios from 'axios';
-
 
 export default function Page() {
     const myElementRef = useRef(null);
@@ -25,16 +24,16 @@ export default function Page() {
                 const listaDeObjetos = dados.map(item => (
                     {
                         body: {
-                            cod: item.ra, 
-                            titulo: `${item.usuario.nome}`, 
-                            p: [ 
-                                `Ra: ${item.ra}`, 
-                                `Curso: ${item.curso.sigla} - ${item.curso.turno}` 
+                            cod: item.ra,
+                            titulo: `${item.usuario.nome}`,
+                            p: [
+                                `Ra: ${item.ra}`,
+                                `Curso: ${item.curso.sigla} - ${item.curso.turno}`
                             ]
                         }
                     }
                 ))
-                    
+
                 setListaDeObjetos(listaDeObjetos);
 
             } catch (error) {
@@ -49,9 +48,9 @@ export default function Page() {
 
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
-                <h1>Visualizar Alunos</h1>
+        <section className={css.form} ref={myElementRef}>
+            <div>
+                <h1 className={css.h1}>Visualizar Alunos</h1>
             </div>
 
             {card(listaDeObjetos, '/secretaria/alunos/lista', [])}

@@ -1,6 +1,6 @@
 "use client"
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { modal, card } from '@/components/layoutsComponents'
@@ -128,10 +128,10 @@ export default function Page() {
     }, [])
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
-                <h1>Manter Professor</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+        <section className={css.form} ref={myElementRef}>
+            <div className={css.center}>
+                <h1 className={css.h1}>Manter Professor</h1>
+                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}
@@ -141,8 +141,8 @@ export default function Page() {
                 {
                     layout: [
                         { tag: "input", nome: "Nome", tipo: "text" },
-                        { tag: "input", nome: "cpf", tipo: "text" },
-                        { tag: "input", nome: "Data Nasc.", tipo: "date" },
+                        { tag: "input", nome: "CPF", tipo: "text" },
+                        { tag: "input", nome: "Data de Nascimento", tipo: "date" },
                         { tag: "input", nome: "Titulação", tipo: "text" },
                         { tag: "input", nome: "Email Pessoal", tipo: "email" }
                     ]

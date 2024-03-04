@@ -1,6 +1,6 @@
 "use client"
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { card, modal } from '@/components/layoutsComponents'
@@ -20,11 +20,11 @@ export default function Page() {
     const [listaFuncs, setlistaFuncs] = useState([]);
 
     const [mensagem, setMensagem] = useState([])
-    
+
     //MODAL
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false);
-    const handleShow = () => { setShow(true); setMensagem('criar')};
+    const handleShow = () => { setShow(true); setMensagem('criar') };
 
     useEffect(() => {
         async function selectALL() {
@@ -122,10 +122,10 @@ export default function Page() {
     }, []);
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
-                <h1>Manter Curso</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+        <section className={css.form} ref={myElementRef}>
+            <div className={css.center}>
+                <h1 className={css.h1}>Manter Curso</h1>
+                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}

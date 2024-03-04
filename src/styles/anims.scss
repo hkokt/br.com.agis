@@ -1,0 +1,75 @@
+$appear: appear .3s cubic-bezier(0.15, 0.75, 0.55, 1.25) forwards;
+$wobble: wobble .1s ease;
+$teste: teste .7s ease 0s 1 normal forwards;
+$shake: shake 1s ease 0s 1 normal forwards;
+
+@keyframes appear {
+
+   0% {
+      transform: translate(-50%, 100%);
+   }
+
+   100% {
+      transform: translate(-50%, -50%);
+   }
+}
+
+@keyframes wobble {
+
+   0% {
+      transform: scale(1);
+   }
+
+   50% {
+      transform: scale(0.95);
+   }
+
+   100% {
+      transform: scale(1);
+   }
+}
+
+@keyframes teste {
+   0% {
+      opacity: 0;
+      transform: translateX(-100px);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+@keyframes shake {
+
+   0%,
+   100% {
+      transform: rotate(0deg);
+      transform-origin: 50% 100%;
+   }
+
+   10% {
+      transform: rotate(2deg);
+   }
+
+   20%,
+   40%,
+   60% {
+      transform: rotate(-4deg);
+   }
+
+   30%,
+   50%,
+   70% {
+      transform: rotate(4deg);
+   }
+
+   80% {
+      transform: rotate(-2deg);
+   }
+
+   90% {
+      transform: rotate(2deg);
+   }
+}

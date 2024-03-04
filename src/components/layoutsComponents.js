@@ -1,13 +1,13 @@
-import camposStyle from '@/styles/campos.module.css'
-import { input, select } from '@/components/crudComponents'
+import css from '@/styles/estilos.module.scss';
+import { input, select } from '@/components/crudComponents';
 
 export function formCrud(props) {
     return (
         <>
-            <div className={camposStyle.campos}>
+            <div>
                 {
                     props.layout.map(field => (
-                        <div className={camposStyle.campo} key={field.nome}>
+                        <div key={field.nome}>
                             {
                                 field.tag === 'input' && (
                                     input({ nome: field.nome, tipo: field.tipo })
@@ -29,7 +29,7 @@ export function formCrud(props) {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons'
 
-import cardStyle from '@/styles/card.module.css'
+import cardStyle from '@/styles/estilos.module.scss'
 import Link from 'next/link'
 
 export function card(props, link, funcs) {
@@ -89,11 +89,11 @@ import { Button, Modal } from 'react-bootstrap';
 export function modal(show, handleClose, mensagem, funcs, layout) {
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal className={css.modal} show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Crud</Modal.Title>
+                <Modal.Title className={css.title}>Modal</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={css.modalContent}>
                 {
                     formCrud(
                         layout
@@ -101,24 +101,48 @@ export function modal(show, handleClose, mensagem, funcs, layout) {
                 }
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
                 {
                     mensagem === 'criar' && (
-                        <Button variant="primary" onClick={funcs.insert}>
+                        <Button className={css.btn} onClick={funcs.insert}>
                             Criar
                         </Button>
                     )
                 }
                 {
                     mensagem === 'atualizar' && (
-                        <Button variant="primary" onClick={funcs.update}>
-                            atualizar
+                        <Button className={css.btn} onClick={funcs.update}>
+                            Atualizar
                         </Button>
                     )
                 }
             </Modal.Footer>
         </Modal>
+    )
+}
+
+export function A(props) {
+
+    return <a href={props.href} target="_blank" className={css.link} > {props.value}</a >
+
+}
+
+export function Footer() {
+
+    const d = new Date();
+    let year = d.getFullYear();
+
+    return (
+        <div className={css.footer}>
+            Follow&trade;
+            <br />
+            Todos os direitos reservados &copy; {year}
+            <br />
+            <br />
+            Developed by
+            <br />
+            <A href="https://github.com/MDellaCS" value="Matheus Della" />&nbsp;-&nbsp;
+            <A href="https://github.com/hkokt" value="Hugo Koketu" />&nbsp;-&nbsp;
+            <A href="https://github.com/Frm2003" value="Felippe Ramos" />
+        </div>
     )
 }

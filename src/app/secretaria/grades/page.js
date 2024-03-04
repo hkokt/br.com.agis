@@ -1,6 +1,6 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { card, formCrud } from '@/components/layoutsComponents';
@@ -85,19 +85,19 @@ export default function Page() {
     }
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
-                <h1>Visualizar Grade</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+        <section className={css.form} ref={myElementRef}>
+            <div className={css.center}>
+                <h1 className={css.h1}>Visualizar Grade</h1>
+                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '/secretaria/grades', [])}
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal className={css.modal} show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Selecione o Curso</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className={css.modalContent}>
                     {formCrud(
                         {
                             layout: [
@@ -107,10 +107,7 @@ export default function Page() {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={criar}>
+                    <Button className={css.btn} onClick={criar}>
                         Criar
                     </Button>
                 </Modal.Footer>

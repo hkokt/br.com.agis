@@ -1,0 +1,14 @@
+@import "fonts";
+@import "anims";
+
+$main: #7b9acc;
+$main-hover: #93B9F4;
+$bg: #FCF6F5;
+$h1: #000000;
+$h2: #666666;
+$shadow: #dbdbdb;
+
+.background {
+    background-color: $bg;
+    //overflow: hidden;
+}

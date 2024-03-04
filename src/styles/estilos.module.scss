@@ -1,0 +1,278 @@
+@import "globals";
+
+.logo {
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    margin: 4px;
+    border-radius: 100%;
+}
+
+.navBar {
+    transition: .1s ease-out;
+    padding: 15px;
+    box-shadow: 0px 4px 20px 0px $shadow;
+    background-color: $bg;
+    width: 100%;
+}
+
+.navDrop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 10px 0px 10px;
+}
+
+.navItem {
+    //border: 3px dashed purple !important;
+
+    &:hover {
+        background-color: $main-hover;
+    }
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    transition: .1s ease-out;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 20px 0px $shadow;
+    background-color: $bg;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    animation: $teste;
+}
+
+.center {
+    text-align: center;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.lbl {
+    font-family: $fontTitle;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 20px;
+    color: $main;
+    transition: .1s ease-out;
+}
+
+// ---------------------------------------------------------------- BUTTON
+
+.btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: $main;
+    color: $bg;
+    font-family: $fontTitle;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 15px 5px 15px;
+    margin: 5px;
+    transition: .1s ease-out;
+    text-decoration: none;
+    height: 100%;
+
+    &:hover,
+    &:active {
+        background-color: $main-hover !important;
+    }
+
+    &:active {
+        animation: $wobble;
+    }
+}
+
+.btnSecondary {
+    @extend .btn;
+    background-color: grey;
+}
+
+.tooltiptext {
+    max-width: 25%;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    margin-left: -256px;
+    margin-top: -80px;
+    z-index: 3;
+    background-color: red;
+    color: $bg;
+    text-align: center;
+    font-family: $fontText;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;
+    padding: 15px;
+    transition: 0.1s ease-out;
+    line-height: 20px;
+}
+
+.tooltip:hover+.tooltiptext {
+    animation: $appear;
+    visibility: visible;
+    opacity: 1;
+}
+
+.title {
+    font-family: $fontTitle;
+    font-size: 28px;
+    font-weight: 500;
+    color: $h1;
+}
+
+.h1 {
+    font-family: $fontTitle;
+    font-size: 40px;
+    font-weight: 500;
+    text-align: center;
+    color: $h1;
+    margin: 4px 4px 56px 4px;
+}
+
+.h2 {
+    font-family: $fontText;
+    font-size: 16px;
+    font-weight: 300;
+    text-align: justify;
+    line-height: 20px;
+    color: $h2;
+}
+
+// ---------------------------------------------------------------- INPUT
+
+.formInput {
+    border: none;
+    border-bottom: 4px solid $shadow;
+    @extend .h2;
+    transition: .1s ease-out;
+    padding: 10px;
+    border-radius: 5px;
+    color: $h2;
+    width: 100%;
+    height: 3rem;
+    margin-top: 6px;
+    margin-bottom: 40px;
+    background-color: $bg;
+}
+
+.formInput:hover,
+.formInput:focus {
+    outline: none;
+    background-color: $shadow;
+}
+
+.formInput[type="checkbox"] {
+    background-color: $bg;
+    border: none;
+    appearance: none;
+}
+
+.formInput[type="checkbox"]::before {
+    @extend .h2;
+    content: "";
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-color: $shadow;
+    border-radius: 2px;
+    transition: background-color .1s ease;
+}
+
+.formInput[type="checkbox"]:checked::before {
+    background-color: $main;
+}
+
+// ---------------------------------------------------------------- MODAL
+
+.modal {
+    padding-top: 2%;
+    backdrop-filter: blur(3px);
+}
+
+.modalContent {
+    margin: 20px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    padding: 4px;
+    margin: 4px;
+    transition: .1s ease-out;
+}
+
+.sticky {
+    position: sticky;
+    top: 5px;
+    width: fit-content;
+
+}
+
+.footer {
+    @extend .h2;
+    background-color: $shadow;
+    text-align: center;
+    padding: 16px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
+
+.link {
+    color: $main;
+    text-decoration: none;
+    font-weight: bolder;
+    font-family: $fontTitle;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    padding: 8px;
+    margin: 8px;
+    flex: auto;
+}
+
+@media (max-width: 1100px) {
+    .row {
+        display: inline;
+    }
+
+    .column {
+        width: 100%;
+    }
+
+    .form {
+        width: 80%;
+    }
+}
