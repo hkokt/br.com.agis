@@ -45,7 +45,7 @@ export default function Page() {
         axios.post(`${url.professores}/login`, { cpf: cpf, senha: '123456' })
             .then(response => {
                 localStorage.setItem('codProf', response.data.cod)
-                router.push('/professor')
+                router.push('professor/turmas')
             })
             .catch(error => console.log(error))
     }

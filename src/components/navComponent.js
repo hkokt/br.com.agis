@@ -18,8 +18,8 @@ export function navSec() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown title="Alunos" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/secretaria/alunos/lista">Lista de Alunos</NavDropdown.Item>
                                 <NavDropdown.Item href="/secretaria/alunos/matricular">Matricular</NavDropdown.Item>
+                                <NavDropdown.Item href="/secretaria/alunos/lista">Lista de Alunos</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title="Inserir" id="basic-nav-dropdown">

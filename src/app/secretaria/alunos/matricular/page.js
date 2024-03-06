@@ -28,19 +28,19 @@ function limpaCampos() {
 export default function () {
     const myElementRef = useRef(null);
 
-    const [listaCursos, setListaCurso] = useState([]);
+    const [listaGrades, setListaGrades] = useState([]);
 
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get(url.cursos);
+                const response = await axios.get(url.grades);
                 const dados = response.data;
 
-                const listaCursos = dados.map(item => (
-                    { text: `${item.nome} - ${item.turno}`, value: `${item.cod}` }
+                const listaGrades = dados.map(item => (
+                    { text: `${item.curso.nome} - ${item.curso.turno}`, value: `${item.cod}` }
                 ));
 
-                setListaCurso(listaCursos);
+                setListaGrades(listaGrades);
             } catch (error) {
                 console.log(error);
             }
@@ -83,7 +83,7 @@ export default function () {
                             { tag: "input", nome: "Email Pessoal", tipo: "text" },
                             { tag: "input", nome: "Pontuação no vestibular", tipo: "number" },
                             { tag: "input", nome: "Posição no Vestibular", tipo: "number" },
-                            { tag: "select", nome: "Cursos", lista: listaCursos }
+                            { tag: "select", nome: "Cursos", lista: listaGrades }
                         ]
                     }
                 )}
