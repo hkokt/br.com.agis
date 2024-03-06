@@ -18,7 +18,8 @@ export default function page({ params }) {
 
         axios.get(`${url.turmas}/${params.codTurma}`)
             .then(response => localStorage.setItem('diaDaSemana', response.data.diaDaSemana))
-
+            .catch(error => console.log(error))
+            
         // PARTE RESPONSÁVEL POR GERAR AS DATAS QUE SERAM EXIBIDAS
         let data = calculaDataInicio(localStorage.getItem('diaDaSemana'));
         const listaDePromessas = [];

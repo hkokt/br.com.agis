@@ -1,17 +1,11 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
 import perfilStyle from '@/styles/perfil.module.css'
-
 import url from '@/components/utils'
-
 import { useEffect, useRef, useState } from 'react'
-
 import Link from 'next/link'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboard, faBook, faPen } from '@fortawesome/free-solid-svg-icons'
-
 import axios from 'axios'
 
 export default function ProfViewTurmaLayout({ children, params }) {
@@ -33,13 +27,7 @@ export default function ProfViewTurmaLayout({ children, params }) {
                     <span>
                         <FontAwesomeIcon icon={faClipboard} className={perfilStyle.iconSize} />
                         <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/professor/turmas/${params.codTurma}`}>
-                            Realizar Chamada
-                        </Link>
-                    </span>
-                    <span>
-                        <FontAwesomeIcon icon={faBook} className={perfilStyle.iconSize} />
-                        <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
-                            Consultar Chamada
+                            Chamadas
                         </Link>
                     </span>
                     <span>
