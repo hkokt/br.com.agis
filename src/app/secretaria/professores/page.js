@@ -131,7 +131,7 @@ export default function Page() {
         <section className={css.form} ref={myElementRef}>
             <div className={css.center}>
                 <h1 className={css.h1}>Manter Professor</h1>
-                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+                <FontAwesomeIcon className={css.icon} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}
@@ -141,8 +141,8 @@ export default function Page() {
                 {
                     layout: [
                         { tag: "input", nome: "Nome", tipo: "text" },
-                        { tag: "input", nome: "CPF", tipo: "text" },
-                        { tag: "input", nome: "Data de Nascimento", tipo: "date" },
+                        { tag: "input", nome: "cpf", tipo: "text" },
+                        { tag: "input", nome: "Data Nasc.", tipo: "date" },
                         { tag: "input", nome: "Titulação", tipo: "text" },
                         { tag: "input", nome: "Email Pessoal", tipo: "email" }
                     ]

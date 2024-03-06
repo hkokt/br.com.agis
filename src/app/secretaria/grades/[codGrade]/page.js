@@ -1,6 +1,6 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { card, modal } from '@/components/layoutsComponents'
@@ -165,11 +165,11 @@ export default function page({ params }) {
 
     return (
         <>
-            <section className={cardStyle.layout} ref={myElementRef}>
-                <div className={cardStyle.title}>
+            <section className={css.form} ref={myElementRef}>
+                <div className={css.center}>
                     <h1></h1>
                     <div>
-                        <Button className={cardStyle.bt} onClick={handleShow}>Adicionar Turma</Button>
+                        <Button className={css.btn} onClick={handleShow}>Adicionar Turma</Button>
                     </div>
                 </div>
 

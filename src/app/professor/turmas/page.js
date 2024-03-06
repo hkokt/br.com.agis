@@ -1,6 +1,6 @@
 'use client'
 
-import cardStyle from "@/styles/card.module.css"
+import css from "@/styles/estilos.module.scss"
 import url from '@/components/utils'
 
 import { card } from "@/components/layoutsComponents";
@@ -47,8 +47,8 @@ export default function page() {
     }, [])
 
     return (
-        <section className={cardStyle.layout} ref={myElementRef}>
-            <div className={cardStyle.title}>
+        <section className={css.layout} ref={myElementRef}>
+            <div className={css.title}>
                 <h1>Minhas Turmas</h1>
             </div>
 

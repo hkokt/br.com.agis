@@ -1,6 +1,6 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
+import css from '@/styles/estilos.module.scss'
 import url from '@/components/utils'
 
 import { card } from '@/components/layoutsComponents'

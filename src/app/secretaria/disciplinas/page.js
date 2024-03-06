@@ -137,8 +137,8 @@ export default function Page() {
     return (
         <section className={css.form} ref={myElementRef}>
             <div className={css.center}>
-                <h1 className={css.h1}>Manter Disicplina</h1>
-                <FontAwesomeIcon width={25} height={25} className={css.btn} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+                <h1 className={css.h1}>Manter Disciplina</h1>
+                <FontAwesomeIcon className={css.icon} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}

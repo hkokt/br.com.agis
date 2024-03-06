@@ -29,16 +29,16 @@ export function formCrud(props) {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons'
 
-import cardStyle from '@/styles/estilos.module.scss'
 import Link from 'next/link'
 
 export function card(props, link, funcs) {
+
     return (
-        <div className={cardStyle.overflow}>
+        <div className={css.table}>
             {
                 props.map((item, i) => (
-                    <div className={cardStyle.card} key={i}>
-                        <div className={cardStyle.cardHead}>
+                    <div className={css.card} key={i}>
+                        <div className={css.cardHead}>
                             <div>
                                 {
                                     link != '' && (
@@ -52,25 +52,25 @@ export function card(props, link, funcs) {
                                 }
                                 <input type='hidden' name="cod" value={item.body.cod}></input>
                             </div>
-                            <div className={cardStyle.icons}>
+                            <div className={css.icons}>
                                 {
                                     funcs.deleteById != null && (
-                                        <FontAwesomeIcon icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)} />
+                                        <FontAwesomeIcon className={css.icon} icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)} />
                                     )
                                 }
                                 {
                                     funcs.selectById != null && (
-                                        <FontAwesomeIcon icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)} />
+                                        <FontAwesomeIcon className={css.icon} icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)} />
                                     )
                                 }
                                 {
                                     funcs.dispensarById != null && (
-                                        <FontAwesomeIcon icon={faBan} onClick={() => funcs.dispensarById()} />
+                                        <FontAwesomeIcon className={css.icon} icon={faBan} onClick={() => funcs.dispensarById()} />
                                     )
                                 }
                             </div>
                         </div>
-                        <div className={cardStyle.cardBody}>
+                        <div className={css.cardBody}>
                             {
                                 item.body.p.map((textos, i) => (
                                     <p key={i}>{textos}</p>
@@ -113,6 +113,7 @@ export function modal(show, handleClose, mensagem, funcs, layout) {
                         <Button className={css.btn} onClick={funcs.update}>
                             Atualizar
                         </Button>
+
                     )
                 }
             </Modal.Footer>

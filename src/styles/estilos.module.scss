@@ -24,7 +24,6 @@
 }
 
 .navItem {
-    //border: 3px dashed purple !important;
 
     &:hover {
         background-color: $main-hover;
@@ -43,11 +42,33 @@
     padding: 30px;
     box-shadow: 0px 4px 20px 0px $shadow;
     background-color: $bg;
-    width: 25%;
+    width: 65%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
     animation: $teste;
+}
+
+.table {
+    //border: 3px dashed purple !important;
+    width: 100%;
+}
+
+.card {
+    border-top: 2px solid $shadow;
+    border-bottom: 2px solid $shadow;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 8px;
+}
+
+.cardHead {
+    @extend .lbl;
+    margin: 16px;
+}
+
+.cardBody {
+    @extend .h2;
 }
 
 .center {
@@ -215,12 +236,26 @@
 }
 
 .icon {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
     border-radius: 100%;
-    padding: 4px;
-    margin: 4px;
+    background-color: $main;
+    color: $bg;
+    padding: 8px;
+    margin: 8px;
     transition: .1s ease-out;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+        background-color: $main-hover !important;
+    }
+
+    &:active {
+        animation: $wobble;
+    }
 }
 
 .sticky {
