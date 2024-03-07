@@ -53,3 +53,28 @@ export function validarCPF(cpf) {
     alert("CPF válido!");
     return true;
 }
+
+export function validarDataNascimento(dataNascimento) {
+    const partes = dataNascimento.split('/');
+    const dia = parseInt(partes[0]);
+    const mes = parseInt(partes[1]) - 1; // Mês é base 0 (janeiro é 0)
+    const ano = parseInt(partes[2]);
+    const data = new Date(ano, mes, dia);
+    
+    // Verifica se a data é uma data válida
+    if (data.getDate() !== dia || data.getMonth() !== mes || data.getFullYear() !== ano) {
+        alert("Data de nascimento inválida!");
+        return false;
+    }
+    
+    // Verifica se a pessoa já nasceu
+    const dataAtual = new Date();
+    if (data > dataAtual) {
+        alert("Data de nascimento inválida! A data de nascimento não pode ser maior que a data atual.");
+        return false;
+    }
+    
+    // Se passou por todas as verificações, a data de nascimento é válida
+    alert("Data de nascimento válida!");
+    return true;
+}
