@@ -2,11 +2,13 @@
 
 import css from "@/styles/estilos.module.scss";
 
+import { validarCPF } from "@/components/utils.js";
+
 import url from "@/components/utils";
 
 import { useState, useEffect, useRef } from 'react';
 
-import { formCrud, Footer } from "@/components/layoutsComponents"
+import { formCrud, Footer } from "@/components/layoutsComponents";
 
 import { useRouter } from "next/navigation";;
 
@@ -18,7 +20,13 @@ export default function Page() {
     const router = useRouter()
 
     const loginProf = () => {
-        let cpf = document.querySelector('[name="CPF"]').value
+        let cpf = document.querySelector('[name="CPF"]').value;
+
+        alert(cpf);
+
+        if (!validarCPF(cpf)) {
+            return;
+        };
 
         axios.post(`${url.professores}/login`, { cpf: cpf, senha: '123456' })
             .then(response => {
@@ -52,7 +60,7 @@ export default function Page() {
                         }
                     )}
                     <div className={css.center}>
-                        <button className={css.btn}>Login Professor</button>
+                        <button className={css.btn} onClick={loginProf}>Login Professor</button>
                         <button className={css.btn} onClick={loginSec}>Login Secretaria</button>
                     </div>
                 </div>
