@@ -1,5 +1,9 @@
 @import "globals";
 
+.background {
+    background-color: $bg;
+}
+
 .logo {
     align-items: center;
     height: 48px;
@@ -45,8 +49,14 @@
     width: 65%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2%;
+    animation: $slide;
+}
+
+.formSmall {
+    @extend .form;
+    width: 25%;
     margin-top: 5%;
-    animation: $teste;
 }
 
 .table {
@@ -60,6 +70,7 @@
     margin-top: 12px;
     margin-bottom: 12px;
     padding: 8px;
+    animation: $appear;
 }
 
 .cardHead {
@@ -87,47 +98,34 @@
     flex-direction: row;
 }
 
-.lbl {
-    font-family: $fontTitle;
-    font-size: 24px;
-    font-weight: 400;
-    text-align: center;
-    line-height: 20px;
-    color: $main;
-    transition: .1s ease-out;
-}
-
 // ---------------------------------------------------------------- BUTTON
 
 .btn {
-    border: none;
-    cursor: pointer;
-    border-radius: 15px;
-    background-color: $main;
-    color: $bg;
-    font-family: $fontTitle;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 5px 15px 5px 15px;
-    margin: 5px;
-    transition: .1s ease-out;
-    text-decoration: none;
-    height: 100%;
+    font: 500 1.125rem $fontTitle;
+    border: 0.15em solid $main;
+    border-radius: 0.2em;
+    padding: 0.3em 0.8em;
+    margin: 0.25em;
+    transition: 0.1s;
+    background-color: $bg;
+    color: $main;
 
-    &:hover,
-    &:active {
-        background-color: $main-hover !important;
+    &:hover {
+        background-color: $main;
+        color: $bg;
     }
 
     &:active {
-        animation: $wobble;
+        animation: $press;
     }
 }
 
 .btnSecondary {
     @extend .btn;
-    background-color: grey;
+    background-color: $h2;
 }
+
+// ---------------------------------------------------------------- TOOLTIP
 
 .tooltiptext {
     max-width: 25%;
@@ -155,28 +153,29 @@
     opacity: 1;
 }
 
+// ---------------------------------------------------------------- FONTS
+
+.lbl {
+    font: 400 1.5rem/1.2rem $fontTitle;
+    text-align: center;
+    color: $main;
+}
+
 .title {
-    font-family: $fontTitle;
-    font-size: 28px;
-    font-weight: 500;
+    font: 500 1.75rem $fontTitle;
     color: $h1;
 }
 
 .h1 {
-    font-family: $fontTitle;
-    font-size: 40px;
-    font-weight: 500;
+    font: 500 2.5rem $fontTitle;
     text-align: center;
     color: $h1;
-    margin: 4px 4px 56px 4px;
+    margin: 0.25rem 0.25rem 3.5rem 0.25rem;
 }
 
 .h2 {
-    font-family: $fontText;
-    font-size: 16px;
-    font-weight: 300;
+    font: 300 1rem $fontText;
     text-align: justify;
-    line-height: 20px;
     color: $h2;
 }
 
@@ -254,7 +253,7 @@
     }
 
     &:active {
-        animation: $wobble;
+        animation: $press;
     }
 }
 
@@ -271,6 +270,7 @@
     text-align: center;
     padding: 16px;
     position: absolute;
+    right: 0;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -296,6 +296,11 @@
     padding: 8px;
     margin: 8px;
     flex: auto;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 @media (max-width: 1100px) {

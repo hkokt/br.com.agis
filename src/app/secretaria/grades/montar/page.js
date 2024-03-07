@@ -7,8 +7,6 @@ import { card, modal } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
 
-import { Button } from 'react-bootstrap';
-
 import axios from 'axios';
 
 import { useRouter } from 'next/navigation'
@@ -145,14 +143,14 @@ export default function Page() {
                 <div className={css.center}>
                     <h1>Montar Grade</h1>
                     <div>
-                        <Button className={css.btn} onClick={handleShow}>Adicionar Turma</Button>
-                        <Button className={css.btn} onClick={remove}>Remover Turma</Button>
+                        <button className={css.btn} onClick={handleShow}>Adicionar Turma</button>
+                        <button className={css.btn} onClick={remove}>Remover Turma</button>
                     </div>
                 </div>
 
                 {card(listaDeObjetos, '', [])}
 
-                <Button variant="primary" onClick={insert}>Inserir Grade</Button>
+                <button className={css.btn} onClick={insert}>Inserir Grade</button>
             </section>
 
             {modal(

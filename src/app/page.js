@@ -1,13 +1,12 @@
 'use client'
 
 import css from "@/styles/estilos.module.scss";
+
 import url from "@/components/utils";
 
 import { useState, useEffect, useRef } from 'react';
 
 import { formCrud, Footer } from "@/components/layoutsComponents"
-
-import { Button } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";;
 
@@ -39,9 +38,9 @@ export default function Page() {
 
             </section>
             <section className={css.display}>
-                <div className={css.form}>
-                    <div className={css.title}>
-                        <Image className={css.logo} src="/imgs/logo.png" alt="Descrição da imagem" width={1000} height={1000} />
+                <div className={css.formSmall}>
+                    <div className={css.center}>
+                        <Image className={css.logo} src="/imgs/logo.png" alt="Logo" width={1000} height={1000} />
                         <h1 className={css.h1}>Login</h1>
                     </div>
                     {formCrud(
@@ -53,8 +52,8 @@ export default function Page() {
                         }
                     )}
                     <div className={css.center}>
-                        <Button className={css.btn} onClick={loginProf}>Login Professor</Button>
-                        <Button className={css.btn} onClick={loginSec}>Login Secretaria</Button>
+                        <button className={css.btn}>Login Professor</button>
+                        <button className={css.btn} onClick={loginSec}>Login Secretaria</button>
                     </div>
                 </div>
                 <Footer />

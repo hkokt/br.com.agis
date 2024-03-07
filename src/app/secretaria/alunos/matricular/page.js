@@ -8,8 +8,6 @@ import { formCrud } from "@/components/layoutsComponents";
 
 import { useEffect, useState, useRef } from 'react';
 
-import { Button } from "react-bootstrap";
-
 import axios from 'axios';
 
 function limpaCampos() {
@@ -88,7 +86,7 @@ export default function () {
                     }
                 )}
 
-                <Button className={css.btn} onClick={insert}>Matricular</Button>
+                <button className={css.btn} onClick={insert}>Matricular</button>
 
             </div>
         </div>

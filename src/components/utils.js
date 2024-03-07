@@ -1,5 +1,4 @@
 const server = "http://localhost:8080";
-//https://api-agis.onrender.com/
 
 export default {
     server: server,

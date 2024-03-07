@@ -31,57 +31,77 @@ import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons
 
 import Link from 'next/link'
 
+import React, { useState, useEffect } from 'react';
+
 export function card(props, link, funcs) {
+    const [readyCards, setReadyCards] = useState([]);
+
+    useEffect(() => {
+        const delay = 100;
+
+        props.forEach((item, index) => {
+            const timeoutId = setTimeout(() => {
+                setReadyCards(prevState => [...prevState, index]);
+            }, index * delay);
+
+            return () => clearTimeout(timeoutId);
+        });
+    }, [props]);
 
     return (
         <div className={css.table}>
-            {
-                props.map((item, i) => (
-                    <div className={css.card} key={i}>
-                        <div className={css.cardHead}>
-                            <div>
-                                {
-                                    link != '' && (
-                                        <Link href={`${link}/${item.body.cod}`}>{item.body.titulo}</Link>
-                                    )
-                                }
-                                {
-                                    link === '' && (
-                                        <a>{item.body.titulo}</a>
-                                    )
-                                }
-                                <input type='hidden' name="cod" value={item.body.cod}></input>
+            {props.map((item, i) => {
+                const isReady = readyCards.includes(i);
+
+                return (
+                    <div key={i}>
+                        {isReady && (
+                            <div className={css.card}>
+                                <div className={css.cardHead}>
+                                    <div>
+                                        {link !== '' ? (
+                                            <Link href={`${link}/${item.body.cod}`}>{item.body.titulo}</Link>
+                                        ) : (
+                                            <a>{item.body.titulo}</a>
+                                        )}
+                                        <input type='hidden' name='cod' value={item.body.cod}></input>
+                                    </div>
+                                    <div className={css.icons}>
+                                        {funcs.deleteById != null && (
+                                            <FontAwesomeIcon
+                                                className={css.icon}
+                                                icon={faTrash}
+                                                onClick={() => funcs.deleteById(item.body.cod)}
+                                            />
+                                        )}
+                                        {funcs.selectById != null && (
+                                            <FontAwesomeIcon
+                                                className={css.icon}
+                                                icon={faPenToSquare}
+                                                onClick={() => funcs.selectById(item.body.cod)}
+                                            />
+                                        )}
+                                        {funcs.dispensarById != null && (
+                                            <FontAwesomeIcon
+                                                className={css.icon}
+                                                icon={faBan}
+                                                onClick={() => funcs.dispensarById()}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className={css.cardBody}>
+                                    {item.body.p.map((textos, j) => (
+                                        <p key={j}>{textos}</p>
+                                    ))}
+                                </div>
                             </div>
-                            <div className={css.icons}>
-                                {
-                                    funcs.deleteById != null && (
-                                        <FontAwesomeIcon className={css.icon} icon={faTrash} onClick={() => funcs.deleteById(item.body.cod)} />
-                                    )
-                                }
-                                {
-                                    funcs.selectById != null && (
-                                        <FontAwesomeIcon className={css.icon} icon={faPenToSquare} onClick={() => funcs.selectById(item.body.cod)} />
-                                    )
-                                }
-                                {
-                                    funcs.dispensarById != null && (
-                                        <FontAwesomeIcon className={css.icon} icon={faBan} onClick={() => funcs.dispensarById()} />
-                                    )
-                                }
-                            </div>
-                        </div>
-                        <div className={css.cardBody}>
-                            {
-                                item.body.p.map((textos, i) => (
-                                    <p key={i}>{textos}</p>
-                                ))
-                            }
-                        </div>
+                        )}
                     </div>
-                ))
-            }
+                );
+            })}
         </div>
-    )
+    );
 }
 
 import { Button, Modal } from 'react-bootstrap';

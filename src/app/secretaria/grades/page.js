@@ -7,7 +7,7 @@ import { card, formCrud } from '@/components/layoutsComponents';
 
 import { useEffect, useState, useRef } from 'react';
 
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -107,9 +107,7 @@ export default function Page() {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className={css.btn} onClick={criar}>
-                        Criar
-                    </Button>
+                    <button className={css.btn} onClick={criar}>Criar</button>
                 </Modal.Footer>
             </Modal>
         </section>

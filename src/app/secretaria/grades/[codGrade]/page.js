@@ -7,7 +7,7 @@ import { card, modal } from '@/components/layoutsComponents'
 
 import { useState, useEffect, useRef } from "react"
 
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 import axios from "axios"
 
@@ -169,7 +169,7 @@ export default function page({ params }) {
                 <div className={css.center}>
                     <h1></h1>
                     <div>
-                        <Button className={css.btn} onClick={handleShow}>Adicionar Turma</Button>
+                        <button className={css.btn} onClick={handleShow}>Adicionar Turma</button>
                     </div>
                 </div>
 
