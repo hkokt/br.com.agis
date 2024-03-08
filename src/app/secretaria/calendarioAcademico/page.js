@@ -6,9 +6,7 @@ import url from '@/components/utils'
 import { modal, card } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -79,7 +77,7 @@ export default function Page() {
         <section className={cardStyle.layout} ref={myElementRef}>
             <div className={cardStyle.title}>
                 <h1>Calendário Acadêmico</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+                <Button variant='primary' onClick={handleShow}>Inserir Novo</Button>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}

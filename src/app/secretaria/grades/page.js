@@ -88,7 +88,7 @@ export default function Page() {
         <section className={cardStyle.layout} ref={myElementRef}>
             <div className={cardStyle.title}>
                 <h1>Visualizar Grade</h1>
-                <FontAwesomeIcon className={cardStyle.bt} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+                <Button variant='primary' onClick={handleShow}>Inserir Novo</Button>
             </div>
 
             {card(listaDeObjetos, '/secretaria/grades', [])}

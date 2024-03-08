@@ -5,7 +5,7 @@ import url from '@/components/utils'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClipboard, faBook, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faClipboard, faMap, faEnvelopeOpenText, faPen } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 export default function ProfViewTurmaLayout({ children, params }) {
@@ -31,9 +31,21 @@ export default function ProfViewTurmaLayout({ children, params }) {
                         </Link>
                     </span>
                     <span>
+                        <FontAwesomeIcon icon={faMap} className={perfilStyle.iconSize} />
+                        <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
+                            Planejamento
+                        </Link>
+                    </span>
+                    <span>
                         <FontAwesomeIcon icon={faPen} className={perfilStyle.iconSize} />
                         <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
                             Notas
+                        </Link>
+                    </span>
+                    <span>
+                        <FontAwesomeIcon icon={faEnvelopeOpenText} className={perfilStyle.iconSize} />
+                        <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
+                            Solicitações
                         </Link>
                     </span>
                 </article>
