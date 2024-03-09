@@ -4,11 +4,11 @@ import css from "@/styles/estilos.module.scss";
 import { validarCPF } from "@/components/utils.js";
 import url from "@/components/utils";
 import { useState, useEffect, useRef } from 'react';
-import { formCrud, Footer, meuAlert, Ttp } from "@/components/layoutsComponents";
+import { formCrud, Footer, Alert, Ttp } from "@/components/layoutsComponents";
 import { useRouter } from "next/navigation";;
 import axios from "axios";
 import Image from 'next/image';
-import { Alert, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 export default function Page() {
     const router = useRouter()
@@ -16,7 +16,7 @@ export default function Page() {
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value;
 
-        meuAlert();
+
 
         if (!validarCPF(cpf)) {
             return;
@@ -42,6 +42,7 @@ export default function Page() {
                         <Image className={css.logo} src="/imgs/logo.png" alt="Logo" width={1000} height={1000} />
                         <h1 className={css.h1}>Login</h1>
                     </div>
+                    {Alert({texto: "Testando"})}
                     {formCrud(
                         {
                             layout: [

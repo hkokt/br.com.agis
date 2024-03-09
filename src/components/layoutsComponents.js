@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { OverlayTrigger, Tooltip, Alert, Modal } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
 
 export function Ttp({ children, ttpMessage }) {
 
@@ -15,18 +15,15 @@ export function Ttp({ children, ttpMessage }) {
     );
 }
 
-export function meuAlert() {
+export const Alert = (props) => {
 
-    return (
-        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-            <p>
-                Change this and that and try again. Duis mollis, est non commodo
-                luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                Cras mattis consectetur purus sit amet fermentum.
-            </p>
-        </Alert>
-    );
+    const [open, setOpen] = useState(true);
+
+    if (open) {
+        return (
+            <button className={css.alert} onClick={() => setOpen(false)}>{props.texto}</button>
+        );
+    }
 }
 
 export function formCrud(props) {

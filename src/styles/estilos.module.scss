@@ -135,6 +135,25 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+// ---------------------------------------------------------------- ALERT
+
+.alert {
+    @extend .btn;
+    font: 300 1.5rem $fontTitle;
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    animation: $levitate;
+
+    &:hover {
+        animation: $shake;
+    }
+
+    &:active {
+        animation: $explode;
+    }
+}
+
 // ---------------------------------------------------------------- FONTS
 
 .lbl {
