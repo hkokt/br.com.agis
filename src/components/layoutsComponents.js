@@ -1,5 +1,33 @@
 import css from '@/styles/estilos.module.scss';
 import { input, select } from '@/components/crudComponents';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { OverlayTrigger, Tooltip, Alert, Modal } from 'react-bootstrap';
+
+export function Ttp({ children, ttpMessage }) {
+
+    return (
+        <OverlayTrigger overlay={<Tooltip>{ttpMessage}</Tooltip>}>
+            {children}
+        </OverlayTrigger>
+    );
+}
+
+export function meuAlert() {
+
+    return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+            <p>
+                Change this and that and try again. Duis mollis, est non commodo
+                luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+                Cras mattis consectetur purus sit amet fermentum.
+            </p>
+        </Alert>
+    );
+}
 
 export function formCrud(props) {
     return (
@@ -25,13 +53,6 @@ export function formCrud(props) {
         </>
     )
 }
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPenToSquare, faBan } from '@fortawesome/free-solid-svg-icons'
-
-import Link from 'next/link'
-
-import React, { useState, useEffect } from 'react';
 
 export function card(props, link, funcs) {
     const [readyCards, setReadyCards] = useState([]);
@@ -104,8 +125,6 @@ export function card(props, link, funcs) {
     );
 }
 
-import { Button, Modal } from 'react-bootstrap';
-
 export function modal(show, handleClose, mensagem, funcs, layout) {
 
     return (
@@ -123,17 +142,12 @@ export function modal(show, handleClose, mensagem, funcs, layout) {
             <Modal.Footer>
                 {
                     mensagem === 'criar' && (
-                        <Button className={css.btn} onClick={funcs.insert}>
-                            Criar
-                        </Button>
+                        <button className={css.btn} onClick={funcs.insert}>Criar</button>
                     )
                 }
                 {
                     mensagem === 'atualizar' && (
-                        <Button className={css.btn} onClick={funcs.update}>
-                            Atualizar
-                        </Button>
-
+                        <button className={css.btn} onClick={funcs.update}>Atualizar</button>
                     )
                 }
             </Modal.Footer>

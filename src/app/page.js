@@ -1,20 +1,14 @@
 'use client'
 
 import css from "@/styles/estilos.module.scss";
-
 import { validarCPF } from "@/components/utils.js";
-
 import url from "@/components/utils";
-
 import { useState, useEffect, useRef } from 'react';
-
-import { formCrud, Footer } from "@/components/layoutsComponents";
-
+import { formCrud, Footer, meuAlert, Ttp } from "@/components/layoutsComponents";
 import { useRouter } from "next/navigation";;
-
 import axios from "axios";
-
 import Image from 'next/image';
+import { Alert, Modal } from 'react-bootstrap';
 
 export default function Page() {
     const router = useRouter()
@@ -22,7 +16,7 @@ export default function Page() {
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value;
 
-        alert(cpf);
+        meuAlert();
 
         if (!validarCPF(cpf)) {
             return;
@@ -42,9 +36,6 @@ export default function Page() {
 
     return (
         <>
-            <section>
-
-            </section>
             <section className={css.display}>
                 <div className={css.formSmall}>
                     <div className={css.center}>
@@ -60,8 +51,12 @@ export default function Page() {
                         }
                     )}
                     <div className={css.center}>
-                        <button className={css.btn} onClick={loginProf}>Login Professor</button>
-                        <button className={css.btn} onClick={loginSec}>Login Secretaria</button>
+                        <Ttp ttpMessage="Professor">
+                            <button className={css.btn} onClick={loginProf}>Login Professor</button>
+                        </Ttp>
+                        <Ttp ttpMessage="Secretaria">
+                            <button className={css.btn} onClick={loginSec}>Login Secretaria</button>
+                        </Ttp>
                     </div>
                 </div>
                 <Footer />
