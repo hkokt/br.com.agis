@@ -74,10 +74,10 @@ export default function Page() {
     }, [])
 
     return (
-        <section className={css.layout} ref={myElementRef}>
-            <div className={css.title}>
-                <h1>Calendário Acadêmico</h1>
-                <Button variant='primary' onClick={handleShow}>Inserir Novo</Button>
+        <section className={css.form} ref={myElementRef}>
+            <div className={css.center}>
+                <h1 className={css.h1}>Calendário Acadêmico</h1>
+                <button className={css.btn} onClick={handleShow}>Inserir Novo</button>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}

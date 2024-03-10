@@ -16,7 +16,7 @@ function limpaCampos() {
     document.querySelector('[name="CPF"]').value = ""
     document.querySelector('[name="Nome"]').value = ""
     document.querySelector('[name="Nome Social"]').value = ""
-    document.querySelector('[name="Data Nasc."]').value = ""
+    document.querySelector('[name="Data de Nascimento"]').value = ""
     document.querySelector('[name="Data de Conclusão do 2°"]').value = ""
     document.querySelector('[name="Instituição de Conclusão do 2°"]').value = ""
     document.querySelector('[name="Email Pessoal"]').value = ""
@@ -54,7 +54,7 @@ export default function () {
             cpf: document.querySelector('[name="CPF"]').value,
             nome: document.querySelector('[name="Nome"]').value,
             nomeSocial: document.querySelector('[name="Nome Social"]').value,
-            dataNasc: document.querySelector('[name="Data Nasc."]').value,
+            dataNasc: document.querySelector('[name="Data de Nascimento"]').value,
             dataConc2grau: document.querySelector('[name="Data de Conclusão do 2°"]').value,
             instConc2grau: document.querySelector('[name="Instituição de Conclusão do 2°"]').value,
             emailPessoal: document.querySelector('[name="Email Pessoal"]').value,
@@ -69,7 +69,7 @@ export default function () {
     }
 
     return (
-        <div className={css.display} ref={myElementRef}>
+        <div className={css.form} ref={myElementRef}>
             <div className={css.layout}>
                 {formCrud(
                     {
@@ -77,13 +77,13 @@ export default function () {
                             { tag: "input", nome: "Nome", tipo: "text" },
                             { tag: "input", nome: "Nome Social", tipo: "text" },
                             { tag: "input", nome: "CPF", tipo: "text" },
-                            { tag: "input", nome: "Data Nasc.", tipo: "date" },
+                            { tag: "input", nome: "Data de Nascimento", tipo: "date" },
                             { tag: "input", nome: "Instituição de Conclusão do 2°", tipo: "text" },
                             { tag: "input", nome: "Data de Conclusão do 2°", tipo: "date" },
                             { tag: "input", nome: "Email Pessoal", tipo: "text" },
                             { tag: "input", nome: "Pontuação no vestibular", tipo: "number" },
                             { tag: "input", nome: "Posição no Vestibular", tipo: "number" },
-                            { tag: "select", nome: "Cursos", lista: listaGrades }
+                            { tag: "select", nome: "Curso", lista: listaGrades }
                         ]
                     }
                 )}
