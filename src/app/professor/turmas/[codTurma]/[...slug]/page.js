@@ -1,6 +1,6 @@
 'use client'
 
-import listaStyle from '@/styles/lista.module.css'
+import css from '@/styles/estilos.module.scss'
 
 import url from '@/components/utils'
 
@@ -79,10 +79,10 @@ export default function page({ params }) {
     return (
         <section ref={myElementRef}>
             <h2>Chamada do dia: {`${params.slug[0]}/${params.slug[1]}/${params.slug[2]}`}</h2>
-            <div className={listaStyle.height}>
+            <div className={css.height}>
                 {
                     listaDeObjetos.map((item, i) => (
-                        <div className={listaStyle.layout} key={i}>
+                        <div className={css.layout} key={i}>
 
                             <h3>{item.body.nome}</h3>
                             <div>

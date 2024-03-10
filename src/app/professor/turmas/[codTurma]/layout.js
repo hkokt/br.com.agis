@@ -1,7 +1,6 @@
 'use client'
 
-import cardStyle from '@/styles/card.module.css'
-import perfilStyle from '@/styles/perfil.module.css'
+import css from '@/styles/estilos.module.scss';
 
 import url from '@/components/utils'
 
@@ -26,24 +25,24 @@ export default function ProfViewTurmaLayout({ children, params }) {
     }, [])
 
     return (
-        <div className={perfilStyle.site} ref={myElementRef}>
+        <div className={css.site} ref={myElementRef}>
             <h1></h1>
-            <div className={perfilStyle.navigation}>
+            <div className={css.navigation}>
                 <article>
                     <span>
-                        <FontAwesomeIcon icon={faClipboard} className={perfilStyle.iconSize} />
+                        <FontAwesomeIcon icon={faClipboard} className={css.iconSize} />
                         <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`/professor/turmas/${params.codTurma}`}>
                             Realizar Chamada
                         </Link>
                     </span>
                     <span>
-                        <FontAwesomeIcon icon={faBook} className={perfilStyle.iconSize} />
+                        <FontAwesomeIcon icon={faBook} className={css.iconSize} />
                         <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
                             Consultar Chamada
                         </Link>
                     </span>
                     <span>
-                        <FontAwesomeIcon icon={faPen} className={perfilStyle.iconSize} />
+                        <FontAwesomeIcon icon={faPen} className={css.iconSize} />
                         <Link style={{ textDecoration: 'none', padding: '0.5em', color: 'black' }} href={`#`}>
                             Notas
                         </Link>

@@ -21,7 +21,10 @@ export const Alert = (props) => {
 
     if (open) {
         return (
-            <button className={css.alert} onClick={() => setOpen(false)}>{props.texto}</button>
+            <button className={css.alert} onClick={() => setOpen(false)}>
+                {props.texto}
+                <div className={css.h2}>Pellentesqueulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, an</div>
+            </button>
         );
     }
 }

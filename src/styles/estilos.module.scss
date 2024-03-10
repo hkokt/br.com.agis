@@ -145,10 +145,6 @@
     right: 3rem;
     animation: $levitate;
 
-    &:hover {
-        animation: $shake;
-    }
-
     &:active {
         animation: $explode;
     }

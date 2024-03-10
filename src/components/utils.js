@@ -1,3 +1,5 @@
+import { Alert } from "@/components/layoutsComponents";
+
 const server = "http://localhost:8080";
 
 export default {
@@ -16,7 +18,7 @@ export default {
 export function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
     if (cpf === '') {
-        alert("CPF inválido!");
+        Alert({ texto: "CPF inválido!" });
         return false;
     }
     if (cpf.length !== 11 ||
@@ -39,7 +41,7 @@ export function validarCPF(cpf) {
     let resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) {
-        alert("CPF inválido!");
+        Alert({ texto: "CPF inválido!" });
         return false;
     }
     soma = 0;
@@ -47,10 +49,10 @@ export function validarCPF(cpf) {
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(10, 11))) {
-        alert("CPF inválido!");
+        Alert({ texto: "CPF inválido!" });
         return false;
     }
-    alert("CPF válido!");
+    Alert({ texto: "CPF válido!" });
     return true;
 }
 
@@ -60,20 +62,20 @@ export function validarDataNascimento(dataNascimento) {
     const mes = parseInt(partes[1]) - 1; // Mês é base 0 (janeiro é 0)
     const ano = parseInt(partes[2]);
     const data = new Date(ano, mes, dia);
-    
+
     // Verifica se a data é uma data válida
     if (data.getDate() !== dia || data.getMonth() !== mes || data.getFullYear() !== ano) {
         alert("Data de nascimento inválida!");
         return false;
     }
-    
+
     // Verifica se a pessoa já nasceu
     const dataAtual = new Date();
     if (data > dataAtual) {
         alert("Data de nascimento inválida! A data de nascimento não pode ser maior que a data atual.");
         return false;
     }
-    
+
     // Se passou por todas as verificações, a data de nascimento é válida
     alert("Data de nascimento válida!");
     return true;

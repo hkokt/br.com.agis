@@ -16,7 +16,7 @@ export default function Page() {
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value;
 
-
+        Alert({texto: "Test"});
 
         if (!validarCPF(cpf)) {
             return;
@@ -42,7 +42,6 @@ export default function Page() {
                         <Image className={css.logo} src="/imgs/logo.png" alt="Logo" width={1000} height={1000} />
                         <h1 className={css.h1}>Login</h1>
                     </div>
-                    {Alert({texto: "Testando"})}
                     {formCrud(
                         {
                             layout: [
