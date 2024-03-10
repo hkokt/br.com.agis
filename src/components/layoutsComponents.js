@@ -47,7 +47,7 @@ export function card(props, link, funcs) {
                                 }
                                 {
                                     link === '' && (
-                                        <a>{item.body.titulo}</a>
+                                        <span>{item.body.titulo}</span>
                                     )
                                 }
                                 <input type='hidden' name="cod" value={item.body.cod}></input>
@@ -87,11 +87,11 @@ export function card(props, link, funcs) {
 import { Button, Modal } from 'react-bootstrap';
 
 export function modal(show, handleClose, mensagem, funcs, layout) {
-
+    
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Crud</Modal.Title>
+                <Modal.Title>Formulário</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {

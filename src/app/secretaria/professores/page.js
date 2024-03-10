@@ -31,10 +31,10 @@ export default function Page() {
                     {
                         body: {
                             cod: item.cod,
-                            titulo: `${item.titulacao} - ${item.usuario.nome}`,
+                            titulo: `${item.titulacao} - ${item.nome}`,
                             p: [
-                                `Email Corp.: ${item.usuario.emailCorp}`,
-                                `Email Pessoal: ${item.usuario.emailPessoal}`
+                                `Email Corp.: ${item.emailCorp}`,
+                                `Email Pessoal: ${item.emailPessoal}`
                             ]
                         }
                     }

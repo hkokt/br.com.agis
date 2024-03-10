@@ -49,7 +49,7 @@
     padding: 0.5em 0;
 }
 
-.cardHead a {
+.cardHead a, .cardHead span {
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;

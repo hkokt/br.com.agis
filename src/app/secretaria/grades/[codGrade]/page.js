@@ -54,7 +54,7 @@ export default function page({ params }) {
         axios.get(url.professores)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
-                    { text: `${item.usuario.nome}`, value: `${item.cod}` }
+                    { text: `${item.nome}`, value: `${item.cod}` }
                 ))
                 setListaProfessores(listaDeObjetos)
             })
@@ -74,7 +74,7 @@ export default function page({ params }) {
                             p: [
                                 `De ${item.horarioInicio} até ${item.horarioFim}`,
                                 `Dia da Semanada: ${item.diaDaSemana}`,
-                                `Professor: ${item.professor.usuario.nome}`
+                                `Professor: ${item.professor.nome}`
                             ]
                         }
                     }

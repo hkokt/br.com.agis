@@ -2,12 +2,9 @@
 
 import perfilStyle from '@/styles/perfil.module.css'
 import url from '@/components/utils'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faBook, faBookOpen, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
-
-import { useEffect, useRef, useState } from 'react'
-
+import { useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import Link from 'next/link'
@@ -20,13 +17,13 @@ export default function SecViewAlunoLayout({ children, params }) {
         axios.get(`${url.alunos}/${params.ra}`)
             .then(response => {
                 document.querySelector('#nomes').innerHTML = `
-                    <p>Nome: ${response.data.usuario.nome}</p>
+                    <p>Nome: ${response.data.nome}</p>
                     <p>Nome Social: ${response.data.nomeSocial}</p>
                 `
                 document.querySelector('#contatos').innerHTML = `
                     <p>Emails</p>    
-                    <p>${response.data.usuario.emailPessoal}</p>
-                    <p>${response.data.usuario.emailCorp}</p>
+                    <p>${response.data.emailPessoal}</p>
+                    <p>${response.data.emailCorp}</p>
                 `
             })
             .catch(error => console.log(error))

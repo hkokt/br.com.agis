@@ -54,7 +54,7 @@ export default function Page() {
         axios.get(url.professores)
             .then(response => {
                 const listaDeObjetos = response.data.map(item => (
-                    { text: `${item.usuario.nome}`, value: `${item.cod}` }
+                    { text: `${item.nome}`, value: `${item.cod}` }
                 ))
                 setListaProfessores(listaDeObjetos)
             })

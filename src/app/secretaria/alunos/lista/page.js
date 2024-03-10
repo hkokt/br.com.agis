@@ -2,11 +2,8 @@
 
 import cardStyle from '@/styles/card.module.css'
 import url from '@/components/utils'
-
 import { card } from '@/components/layoutsComponents';
-
 import { useEffect, useState, useRef } from 'react';
-
 import axios from 'axios';
 
 
@@ -26,7 +23,7 @@ export default function Page() {
                     {
                         body: {
                             cod: item.ra, 
-                            titulo: `${item.usuario.nome}`, 
+                            titulo: `${item.nome}`, 
                             p: [ 
                                 `Ra: ${item.ra}`, 
                                 `Curso: ${item.curso.sigla} - ${item.curso.turno}` 
