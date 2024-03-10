@@ -8,6 +8,8 @@ import { formCrud } from "@/components/layoutsComponents";
 
 import { useEffect, useState, useRef } from 'react';
 
+import { Button } from "react-bootstrap";
+
 import axios from 'axios';
 
 function limpaCampos() {
@@ -26,19 +28,19 @@ function limpaCampos() {
 export default function () {
     const myElementRef = useRef(null);
 
-    const [listaCursos, setListaCurso] = useState([]);
+    const [listaGrades, setListaGrades] = useState([]);
 
     useEffect(() => {
         async function selectCursos() {
             try {
-                const response = await axios.get(url.cursos);
+                const response = await axios.get(url.grades);
                 const dados = response.data;
 
-                const listaCursos = dados.map(item => (
-                    { text: `${item.nome} - ${item.turno}`, value: `${item.cod}` }
+                const listaGrades = dados.map(item => (
+                    { text: `${item.curso.nome} - ${item.curso.turno}`, value: `${item.cod}` }
                 ));
 
-                setListaCurso(listaCursos);
+                setListaGrades(listaGrades);
             } catch (error) {
                 console.log(error);
             }
@@ -68,27 +70,28 @@ export default function () {
 
     return (
         <div className={css.display} ref={myElementRef}>
-            <div className={css.form}>
+            <div className={css.layout}>
                 {formCrud(
                     {
                         layout: [
                             { tag: "input", nome: "Nome", tipo: "text" },
                             { tag: "input", nome: "Nome Social", tipo: "text" },
                             { tag: "input", nome: "CPF", tipo: "text" },
-                            { tag: "input", nome: "Data de Nascimento", tipo: "date" },
+                            { tag: "input", nome: "Data Nasc.", tipo: "date" },
                             { tag: "input", nome: "Instituição de Conclusão do 2°", tipo: "text" },
                             { tag: "input", nome: "Data de Conclusão do 2°", tipo: "date" },
                             { tag: "input", nome: "Email Pessoal", tipo: "text" },
                             { tag: "input", nome: "Pontuação no vestibular", tipo: "number" },
                             { tag: "input", nome: "Posição no Vestibular", tipo: "number" },
-                            { tag: "select", nome: "Cursos", lista: listaCursos }
+                            { tag: "select", nome: "Cursos", lista: listaGrades }
                         ]
                     }
                 )}
 
-                <button className={css.btn} onClick={insert}>Matricular</button>
+                <Button variant="outline-primary" onClick={insert}>Matricular</Button>
 
             </div>
+
         </div>
     )
 }

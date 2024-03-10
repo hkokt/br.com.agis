@@ -1,16 +1,11 @@
 'use client'
 
-import css from '@/styles/estilos.module.scss'
-
-import url from '@/components/utils'
-
-import { useRef, useEffect, useState } from 'react'
-
+import css from '@/styles/estilos.module.scss';
+import url from '@/components/utils';
+import { useRef, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-
-import axios from "axios"
+import axios from "axios";
 import moment from 'moment';
-
 import { useRouter } from 'next/navigation';
 
 export default function page({ params }) {
@@ -21,7 +16,8 @@ export default function page({ params }) {
     const [funcs, setFuncs] = useState([]);
 
     useEffect(() => {
-        async function selectAll() {
+
+        async function selectAllMatriculas() {
             try {
                 const response = await axios.get(`${url.matriculas}/turma/${params.codTurma}`)
                 const dados = response.data;
@@ -31,6 +27,7 @@ export default function page({ params }) {
                         body: {
                             ra: item.aluno.ra,
                             nome: item.aluno.usuario.nome,
+                            qtdFaltas: 0
                         }
                     }
                 ))
@@ -41,7 +38,35 @@ export default function page({ params }) {
             }
         }
 
-        selectAll()
+        async function selectAllChamada() {
+            try {
+                const response = await axios.get(`${url.chamadas}/${params.codTurma}/${moment(`${params.slug[2]}-${params.slug[1]}-${params.slug[0]}`).format("YYYY-MM-DD")}`)
+                const dados = response.data;
+
+                const listaDeObjetos = dados.map(item => (
+                    {
+                        body: {
+                            ra: item.aluno.ra,
+                            nome: item.aluno.usuario.nome,
+                            qtdFaltas: item.qtdFaltas
+                        }
+                    }
+                ))
+
+                setListaDeObjetos(listaDeObjetos)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        axios.get(`${url.chamadas}/verificacao/${params.codTurma}/${moment(`${params.slug[2]}-${params.slug[1]}-${params.slug[0]}`).format("YYYY-MM-DD")}`)
+            .then(response => {
+                if (response.data) {
+                    selectAllMatriculas()
+                } else {
+                    selectAllChamada()
+                }
+            })
 
         const insert = () => {
             if (moment() >= moment(`${params.slug[2]}-${params.slug[1]}-${params.slug[0]}`)) {
@@ -66,7 +91,15 @@ export default function page({ params }) {
                         .catch(error => console.log(error))
                 })
 
-                router.push(`/professor/turmas/${params.codTurma}`)
+                
+
+                axios.get(`${url.chamadas}/verificacao/${params.codTurma}/${moment(`${params.slug[2]}-${params.slug[1]}-${params.slug[0]}`).format("YYYY-MM-DD")}`)
+                    .then(response => {
+                        if (response.data) {
+                            router.push(`/professor/turmas/${params.codTurma}`)
+                        }
+                    })
+
             } else {
                 console.log('não é possível realizar a chamada')
             }
@@ -89,13 +122,15 @@ export default function page({ params }) {
                                 <p>{item.body.ra}</p>
                                 <input type='hidden' value={item.body.ra} name="ra"></input>
                                 <p>{`${params.slug[0]}-${params.slug[1]}-${params.slug[2]}`}</p>
-                                <select id="qtdFaltas">
+
+                                <select id="qtdFaltas" defaultValue={item.body.qtdFaltas}>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                 </select>
+
                             </div>
 
                         </div>

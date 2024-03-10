@@ -6,9 +6,7 @@ import url from '@/components/utils'
 import { modal, card } from '@/components/layoutsComponents'
 
 import { useEffect, useState, useRef } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -76,10 +74,10 @@ export default function Page() {
     }, [])
 
     return (
-        <section className={css.form} ref={myElementRef}>
-            <div className={css.center}>
-                <h1 className={css.h1}>Calendário Acadêmico</h1>
-                <FontAwesomeIcon className={css.icon} onClick={handleShow} icon={faPlus}></FontAwesomeIcon>
+        <section className={css.layout} ref={myElementRef}>
+            <div className={css.title}>
+                <h1>Calendário Acadêmico</h1>
+                <Button variant='primary' onClick={handleShow}>Inserir Novo</Button>
             </div>
 
             {card(listaDeObjetos, '', listaFuncs)}
@@ -89,7 +87,7 @@ export default function Page() {
                 {
                     layout: [
                         { tag: "input", nome: "Data", tipo: "date" },
-                        { tag: "select", nome: "Descrição", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
+                        { tag: "select", nome: "descricao", lista: [{ text: 'Selecione uma data', value: 'default' }, { text: 'Inicio das aulas', value: 'Inicio das aulas' }] },
                         { tag: 'input', nome: 'É feriado?', tipo: 'checkbox' }
                     ]
                 }
