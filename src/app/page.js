@@ -16,8 +16,6 @@ export default function Page() {
     const loginProf = () => {
         let cpf = document.querySelector('[name="CPF"]').value;
 
-        Alert({texto: "Test"});
-
         if (!validarCPF(cpf)) {
             return;
         };

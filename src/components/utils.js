@@ -41,7 +41,6 @@ export function validarCPF(cpf) {
     let resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) {
-        Alert({ texto: "CPF inválido!" });
         return false;
     }
     soma = 0;
@@ -49,10 +48,8 @@ export function validarCPF(cpf) {
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(10, 11))) {
-        Alert({ texto: "CPF inválido!" });
         return false;
     }
-    Alert({ texto: "CPF válido!" });
     return true;
 }
 
