@@ -2,7 +2,7 @@ $appear: appear 0.5s cubic-bezier(.32, .36, .4, 1.44) 0s 1 normal forwards;
 $press: press 0.1s;
 $explode: explode 0.2s;
 $slide: slide 0.7s;
-$shake: shake 0.6s infinite;
+$shake: shake 0.7s;
 $levitate: levitate 3s ease-in-out infinite;
 
 @keyframes appear {
@@ -57,34 +57,26 @@ $levitate: levitate 3s ease-in-out infinite;
 
    0%,
    100% {
-      transform: rotate(0deg);
       transform-origin: 50% 100%;
+      transform: rotate(0deg);
    }
 
-   10% {
-      transform: rotate(1deg);
+   10%,
+   30%,
+   50%,
+   70%,
+   90% {
+      transform: rotate(2deg);
    }
 
    20%,
    40%,
-   60% {
+   60%,
+   80% {
       transform: rotate(-2deg);
    }
-
-   30%,
-   50%,
-   70% {
-      transform: rotate(2deg);
-   }
-
-   80% {
-      transform: rotate(-1deg);
-   }
-
-   90% {
-      transform: rotate(1deg);
-   }
 }
+
 
 @keyframes levitate {
    0% {

@@ -18,7 +18,6 @@ export default {
 export function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
     if (cpf === '') {
-        Alert({ texto: "CPF inválido!" });
         return false;
     }
     if (cpf.length !== 11 ||
@@ -32,7 +31,6 @@ export function validarCPF(cpf) {
         cpf === "77777777777" ||
         cpf === "88888888888" ||
         cpf === "99999999999") {
-        alert("CPF inválido!");
         return false;
     }
 

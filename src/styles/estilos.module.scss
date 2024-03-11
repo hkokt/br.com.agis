@@ -86,6 +86,11 @@
     text-align: center;
 }
 
+.centerMargin {
+    @extend .center;
+    margin: 3rem 0 0 0;
+}
+
 .centered {
     position: absolute;
     top: 50%;
@@ -167,13 +172,21 @@
     font: 500 2.5rem $fontTitle;
     text-align: center;
     color: $h1;
-    margin: 0.25rem 0.25rem 3.5rem 0.25rem;
+    margin: 0.25rem 0.25rem 1.5rem 0.25rem;
 }
 
 .h2 {
     font: 300 1rem $fontText;
     text-align: justify;
     color: $h2;
+}
+
+.error {
+    font: 400 1.2rem $fontText;
+    text-align: center;
+    color: $error;
+    margin: 0.25rem 0.25rem 1rem 0.25rem;
+    animation: $shake;
 }
 
 // ---------------------------------------------------------------- INPUT
