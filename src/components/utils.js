@@ -1,4 +1,4 @@
-const server = "http://localhost:8080";
+const server = "https://api-agis.onrender.com";
 //https://api-agis.onrender.com
 //http://localhost:8080
 
